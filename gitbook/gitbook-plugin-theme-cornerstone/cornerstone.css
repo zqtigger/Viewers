@@ -57,6 +57,7 @@ li a {
   color: #2c3e50;
 }
 .markdown-section a {
+  cursor: pointer;
   color: #42b983;
   font-weight: 600;
 }
@@ -185,6 +186,7 @@ pre code.lang-css:after {
   padding-left: 1.5em;
 }
 .markdown-section a {
+  cursor: pointer;
   color: #42b983;
   font-weight: 600;
 }
@@ -224,4 +226,18 @@ img {
 }
 .highlight .gutter {
   width: 1.5em;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
 }
