@@ -802,10 +802,12 @@ requires at least React &gt; 16.8 &#x1F609;</p>
 <p>OHIF Viewer already sets a main
 <a href="https://react.i18next.com/latest/i18nextprovider" target="_blank">I18nextProvider</a> connected to
 the shared i18n instance from <code>@ohif/i18n</code>, all extensions inside OHIF Viewer
-will share this same provider at the end, you don&apos;t need to set new providers at all.</p>
+will share this same provider at the end, you don&apos;t need to set new providers at
+all.</p>
 <p>But, if you need to use it completely outside of OHIF viewer, you can set the
 I18nextProvider this way:</p>
-<pre><code class="lang-js"><span class="hljs-keyword">import</span> i18n, { I18nextProvider } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@ohif/i18n&apos;</span>;
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> i18n <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@ohif/i18n&apos;</span>;
+<span class="hljs-keyword">import</span> { I18nextProvider } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react-i18next&apos;</span>;
 <span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./App&apos;</span>;
 
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">I18nextProvider</span> <span class="hljs-attr">i18n</span>=<span class="hljs-string">{i18n}</span>&gt;</span>
@@ -813,7 +815,8 @@ I18nextProvider this way:</p>
 <span class="hljs-tag">&lt;/<span class="hljs-name">I18nextProvider</span>&gt;</span>;
 </span></code></pre>
 <p>After setting <code>I18nextProvider</code> in your React App, all translations from
-<code>@ohif/i18n</code> should be available following the basic <a href="#with-react">With React</a> usage.</p>
+<code>@ohif/i18n</code> should be available following the basic <a href="#with-react">With React</a>
+usage.</p>
 <hr>
 <h4 id="without-react"><a name="without-react" class="plugin-anchor" href="#without-react"><i class="fa fa-link" aria-hidden="true"></i></a>Without React</h4>
 <p>When needed, you can also use available translations <em>without React</em>.</p>
@@ -837,30 +840,57 @@ becomes a new namespace automatically.</p>
 <li>UserPreferencesModal - Translations for the react-viewerbase Preferences Modal</li>
 </ul>
 <h3 id="how-to-use-another-namespace-inside-the-current-namespace"><a name="how-to-use-another-namespace-inside-the-current-namespace" class="plugin-anchor" href="#how-to-use-another-namespace-inside-the-current-namespace"><i class="fa fa-link" aria-hidden="true"></i></a>How to use another NameSpace inside the current NameSpace?</h3>
-<p>i18next provides a parsing feature able to get translations strings from any NameSpace,
- like this following example getting data from <code>Common</code> NameSpace:</p>
+<p>i18next provides a parsing feature able to get translations strings from any
+NameSpace, like this following example getting data from <code>Common</code> NameSpace:</p>
 <pre><code>$t(Common:Reset)
 </code></pre><h2 id="-extending-languages-in-ohifi18n"><a name="-extending-languages-in-ohifi18n" class="plugin-anchor" href="#-extending-languages-in-ohifi18n"><i class="fa fa-link" aria-hidden="true"></i></a>- Extending Languages in @ohif/i18n</h2>
-<p>Sometimes, even using the same language, some nouns or jargons can change according to 
-the country, states or even from Hospital to Hospital. </p>
-<p>In this cases, you don&apos;t need to set an entire language again, you can extend languages creating a new folder inside a pre existent language folder and @ohif/i18n will do the hard work.</p>
-<p>This new folder must to be called with a double character name, like the <code>UK</code> in the following file tree:</p>
+<p>Sometimes, even using the same language, some nouns or jargons can change
+according to the country, states or even from Hospital to Hospital.</p>
+<p>In this cases, you don&apos;t need to set an entire language again, you can extend
+languages creating a new folder inside a pre existent language folder and
+@ohif/i18n will do the hard work.</p>
+<p>This new folder must to be called with a double character name, like the <code>UK</code> in
+the following file tree:</p>
 <pre><code class="lang-bash"> |-- src
     |-- locales
+    index.js
         |-- en
             |-- Buttons.json
+            index.js
             | UK
                |-- Buttons.js
+               indes.js
             | US
                |-- Buttons.js
+               index.js
   ...
 </code></pre>
-<p>All properties inside a Namespace will be merged in the new sub language, e.g <code>en-US</code> and <code>en-UK</code> will merge the props with <code>en</code>.</p>
-<p>This feature is based on i18next&apos;s fallback languages tool.</p>
+<p>All properties inside a Namespace will be merged in the new sub language, e.g
+<code>en-US</code> and <code>en-UK</code> will merge the props with <code>en</code>, using i18next&apos;s fallback
+languages tool.</p>
+<p>You will need to export all Json files in your <code>index.js</code> file, mounting an
+object like this:</p>
+<pre><code class="lang-js">   {
+     en: {
+       NameSpace: {
+         keyWord1: <span class="hljs-string">&apos;keyWord1Translation&apos;</span>,
+         keyWord2: <span class="hljs-string">&apos;keyWord2Translation&apos;</span>,
+         keyWord3: <span class="hljs-string">&apos;keyWord3Translation&apos;</span>,
+       }
+     },
+     <span class="hljs-string">&apos;en-UK&apos;</span>: {
+       NameSpace: {
+         keyWord1: <span class="hljs-string">&apos;keyWord1DifferentTranslation&apos;</span>,
+       }
+     }
+   }
+</code></pre>
+<p>Please check the <code>index.js</code> files inside locales folder for an example of this
+exporting structure.</p>
 <h3 id="-extending-languages-dynamically"><a name="-extending-languages-dynamically" class="plugin-anchor" href="#-extending-languages-dynamically"><i class="fa fa-link" aria-hidden="true"></i></a>- Extending languages dynamically</h3>
-<p>Once you have access to the i18n instance, you can use the 
+<p>You have access to the i18next instance, so you can use the
 <a href="https://www.i18next.com/how-to/add-or-load-translations#add-after-init" target="_blank">addResourceBundle</a>
-method to add and change language resources.</p>
+method to add and change language resources as needed.</p>
 <p>E.g.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">import</span> { i18n } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@ohif/i18n&apos;</span>;
 i18next.addResourceBundle(<span class="hljs-string">&apos;pt-BR&apos;</span>, <span class="hljs-string">&apos;Buttons&apos;</span>, {
@@ -872,51 +902,57 @@ i18next.addResourceBundle(<span class="hljs-string">&apos;pt-BR&apos;</span>, <s
 <p>To set a brand new language you can do it in two different ways:</p>
 <ul>
 <li><p>Opening a pull request for <code>@ohif/i18n</code> and sharing the translation with the
-community. &#x1F60D; Please see <a href="#contributing-with-new-languages">Contributing</a> section
-for further information.</p>
+community. &#x1F60D; Please see <a href="#contributing-with-new-languages">Contributing</a>
+section for further information.</p>
 </li>
 <li><p>Setting it only in your project or extension:</p>
 </li>
 </ul>
-<p>You&apos;ll need a folder structure like the following, which you can load using the <code>node context</code> and send it to <code>addLocales</code> method.</p>
-<p>Folder structure:</p>
-<pre><code class="lang-bash"> |-- ...
- |-- src
-    |-- locales
-        |-- en
-            |-- Buttons.json
-        |-- es
-            | CO
-               |-- Buttons.js
-            |-- Buttons.json
-  ...
+<p>You&apos;ll need a a final object like the following, what is setting French as
+language, and send it to <code>addLocales</code> method.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> newLanguage =
+   {
+     fr: {
+       Commons: {
+          <span class="hljs-string">&quot;Reset&quot;</span>: <span class="hljs-string">&quot;R&#xE9;initialiser&quot;</span>,
+          <span class="hljs-string">&quot;Previous&quot;</span>: <span class="hljs-string">&quot;Pr&#xE9;c&#xE9;dent&quot;</span>,
+       },
+       Buttons: {
+         <span class="hljs-string">&quot;Rectangle&quot;</span>: <span class="hljs-string">&quot;Rectangle&quot;</span>,
+         <span class="hljs-string">&quot;Circle&quot;</span>: <span class="hljs-string">&quot;Cercle&quot;</span>,
+       }
+     }
 </code></pre>
+<p>To make it easier to translate, you can copy the .json files in the /locales
+folder and theirs index.js exporters, keeping same keys and NameSpaces.
+Importing the main index.js file, will provide you an Object as expected by the
+method <code>addlocales</code>;</p>
 <p>E.g. of <code>addLocales</code> usage</p>
 <pre><code class="lang-js"><span class="hljs-keyword">import</span> { addLocales } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@ohif/i18n&apos;</span>;
-
-<span class="hljs-keyword">const</span> localesPath = <span class="hljs-string">&apos;./locales&apos;</span>;
-<span class="hljs-keyword">const</span> context = <span class="hljs-built_in">require</span>.context(localesPath, <span class="hljs-literal">true</span>, <span class="hljs-regexp">/\.json$/</span>);
-addLocales(context);
+<span class="hljs-keyword">import</span> locales <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./locales/index.js&apos;</span>;
+addLocales(locales);
 </code></pre>
-<p>Also, <a href="https://www.i18next.com/how-to/add-or-load-translations#add-after-init" target="_blank">i18next</a> provides a few methods to deal with languages, you have access to it&apos;s instance importing the default of @ohif/i18n;
-Fell fre to play around with i18next like this:</p>
-<pre><code>import i18next from &apos;@ohif/i18n&apos;;
-
-i18next.addResourceBundle(&apos;en&apos;, &apos;namespace1&apos;, {
-  key: &apos;hello from namespace 1&apos;
-});
-</code></pre><hr>
-<h2 id="language-detections"><a name="language-detections" class="plugin-anchor" href="#language-detections"><i class="fa fa-link" aria-hidden="true"></i></a>language Detections</h2>
-<p>@ohif/i18n uses <a href="https://github.com/i18next/i18next-browser-languageDetector" target="_blank">i18next-browser-languageDetector</a> to manage detections, also exports a method called initI18n that accepts a new detector config as parameter.</p>
+<p>You can also set them manually, one by one, using this
+<a href="#extending-languages-dynamically">method</a>.</p>
+<hr>
+<h2 id="language-detections"><a name="language-detections" class="plugin-anchor" href="#language-detections"><i class="fa fa-link" aria-hidden="true"></i></a>Language Detections</h2>
+<p>@ohif/i18n uses
+<a href="https://github.com/i18next/i18next-browser-languageDetector" target="_blank">i18next-browser-languageDetector</a>
+to manage detections, also exports a method called initI18n that accepts a new
+detector config as parameter.</p>
 <h3 id="changing-the-language"><a name="changing-the-language" class="plugin-anchor" href="#changing-the-language"><i class="fa fa-link" aria-hidden="true"></i></a>Changing the language</h3>
-<p>OHIF Viewer accepts a query param called <code>lng</code> in the url to change the language.</p>
-<p>E.g. </p>
+<p>OHIF Viewer accepts a query param called <code>lng</code> in the url to change the
+language.</p>
+<p>E.g.</p>
 <pre><code>https://docs.ohif.org/demo/?lng=es-MX
 </code></pre><h3 id="language-persistence"><a name="language-persistence" class="plugin-anchor" href="#language-persistence"><i class="fa fa-link" aria-hidden="true"></i></a>Language Persistence</h3>
-<p>The user&apos;s language preference is kept automatically by the detector and stored at a cookie called &apos;i18next&apos;, and in a localstorage key called &apos;i18nextLng&apos;. 
-These names can be changed with a new <a href="https://github.com/i18next/i18next-browser-languageDetector" target="_blank">Detector Config</a>.</p>
+<p>The user&apos;s language preference is kept automatically by the detector and stored
+at a cookie called &apos;i18next&apos;, and in a localstorage key called &apos;i18nextLng&apos;.
+These names can be changed with a new
+<a href="https://github.com/i18next/i18next-browser-languageDetector" target="_blank">Detector Config</a>.</p>
 <h2 id="debugging-translations"><a name="debugging-translations" class="plugin-anchor" href="#debugging-translations"><i class="fa fa-link" aria-hidden="true"></i></a>Debugging translations</h2>
-<p>There is an environment variable responsible for debugging the translations, called <code>REACT_APP_I18N_DEBUG</code>.</p>
+<p>There is an environment variable responsible for debugging the translations,
+called <code>REACT_APP_I18N_DEBUG</code>.</p>
 <p>Run the project as following to get full debug information:</p>
 <pre><code class="lang-bash">REACT_APP_I18N_DEBUG=<span class="hljs-literal">true</span> yarn run dev
 </code></pre>
@@ -967,7 +1003,7 @@ These names can be changed with a new <a href="https://github.com/i18next/i18nex
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Translating","level":"1.2.6","depth":2,"next":{"title":"Troubleshooting","level":"1.2.7","depth":2,"path":"essentials/troubleshooting.md","ref":"essentials/troubleshooting.md","articles":[]},"previous":{"title":"Themeing","level":"1.2.5","depth":2,"path":"essentials/themeing.md","ref":"essentials/themeing.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"essentials/translating.md","mtime":"2019-06-27T08:59:48.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-06-27T09:06:53.530Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Translating","level":"1.2.6","depth":2,"next":{"title":"Troubleshooting","level":"1.2.7","depth":2,"path":"essentials/troubleshooting.md","ref":"essentials/troubleshooting.md","articles":[]},"previous":{"title":"Themeing","level":"1.2.5","depth":2,"path":"essentials/themeing.md","ref":"essentials/themeing.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"essentials/translating.md","mtime":"2019-06-27T10:01:27.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-06-27T10:08:56.706Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
