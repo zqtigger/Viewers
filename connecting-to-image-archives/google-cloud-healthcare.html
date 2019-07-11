@@ -743,11 +743,6 @@
                                 
                                 <h1 id="google-cloud-healthcare"><a name="google-cloud-healthcare" class="plugin-anchor" href="#google-cloud-healthcare"><i class="fa fa-link" aria-hidden="true"></i></a>Google Cloud Healthcare</h1>
 <blockquote>
-<p>ATTENTION: The original documentation for this integration lives in the legacy
-<code>version 1</code> Meteor documentation. You can
-<a href="../history/v1/connecting-to-image-archives/google-cloud-healthcare.html">find it here</a>.
-These docs will mirror the Meteor documentation until our <code>React</code>
-implementation has been updated to work with Google Cloud Healthcare.</p>
 <p>The <a href="https://cloud.google.com/healthcare/" target="_blank">Google Cloud Healthcare API</a> is a
 powerful option for storing medical imaging data in the cloud.</p>
 </blockquote>
@@ -758,10 +753,7 @@ store their data in the cloud. It offers an
 <a href="https://cloud.google.com/healthcare/docs/dicom" target="_blank">almost-entirely complete DICOMWeb API</a>
 which requires tokens generated via the
 <a href="https://developers.google.com/identity/sign-in/web/sign-in" target="_blank">OAuth 2.0 Sign In flow</a>.
-Images can even be transcoded on the fly if this is desired. The Cloud
-Healthcare API is a very attractive option because it allows us to avoid
-deploying the Meteor server entirely. We can just deploy OHIF as a client-only
-static site application.</p>
+Images can even be transcoded on the fly if this is desired.</p>
 <h2 id="setup-a-google-cloud-healthcare-project"><a name="setup-a-google-cloud-healthcare-project" class="plugin-anchor" href="#setup-a-google-cloud-healthcare-project"><i class="fa fa-link" aria-hidden="true"></i></a>Setup a Google Cloud Healthcare Project</h2>
 <ul>
 <li>Create a Google Cloud account</li>
@@ -806,61 +798,24 @@ origins.</li>
 </ul>
 <h2 id="run-the-viewer-with-your-oauth-client-id"><a name="run-the-viewer-with-your-oauth-client-id" class="plugin-anchor" href="#run-the-viewer-with-your-oauth-client-id"><i class="fa fa-link" aria-hidden="true"></i></a>Run the viewer with your OAuth Client ID</h2>
 <ol>
-<li>Open the <code>config/oidc-googleCloud.json</code> file and change <code>YOURCLIENTID</code> to
+<li>Open the <code>config/google.js</code> file and change <code>YOURCLIENTID</code> to
 your Client ID value.</li>
-<li>Run the OHIF Viewer using the oidc-googleCloud.json configuration file</li>
+<li>Run the OHIF Viewer using the config/google.js configuration file</li>
 </ol>
 <pre><code class="lang-bash"><span class="hljs-built_in">cd</span> OHIFViewer
-METEOR_PACKAGE_DIRS=<span class="hljs-string">&quot;../Packages&quot;</span> meteor npm install
-METEOR_PACKAGE_DIRS=<span class="hljs-string">&quot;../Packages&quot;</span> meteor --settings ../config/oidc-googleCloud.json
+yarn install
+REACT_APP_CONFIG=config/google.js yarn run dev
 </code></pre>
 <h2 id="running-via-docker"><a name="running-via-docker" class="plugin-anchor" href="#running-via-docker"><i class="fa fa-link" aria-hidden="true"></i></a>Running via Docker</h2>
-<p>OHIF is also providing a Docker container which can connect to Google Cloud
-Healthcare with a Client ID which is provided at runtime. This is a very simple
-method to get up and running. Internally, the container is running
-<a href="https://nginx.org/" target="_blank">Nginx</a> to serve the
-<a href="../standalone-viewer/usage.md">Standalone Viewer</a>.</p>
+<p>The OHIF Viewer Docker container can be connected to Google Cloud
+Healthcare by providing a Client ID at runtime. This is a very simple
+method to get up and running.</p>
 <ol>
 <li>Install Docker (<a href="https://www.docker.com/" target="_blank">https://www.docker.com/</a>)</li>
 <li>Run the Docker container, providing a Client ID as an environment variable.
 Client IDs look like <code>xyz.apps.googleusercontent.com</code>.</li>
 </ol>
-<pre><code class="lang-bash">docker run --env CLIENT_ID=<span class="hljs-variable">$CLIENT_ID</span> --publish 3000:80 ohif/viewer-google-cloud:latest
-</code></pre>
-<h2 id="building-the-ohifviewer-google-cloud-docker-image"><a name="building-the-ohifviewer-google-cloud-docker-image" class="plugin-anchor" href="#building-the-ohifviewer-google-cloud-docker-image"><i class="fa fa-link" aria-hidden="true"></i></a>Building the ohif/viewer-google-cloud Docker Image</h2>
-<p>The
-<a href="https://cloud.docker.com/u/ohif/repository/docker/ohif/viewer-google-cloud" target="_blank">ohif/viewer-google-cloud</a>
-Docker image is built as follows. The Dockerfile and nginx.conf are in the
-<code>/dockersupport/viewer-google-cloud</code> folder.</p>
-<ol>
-<li><a href="https://www.meteor.com/install" target="_blank">Install Meteor</a></li>
-<li>Clone the repository</li>
-</ol>
-<pre><code class="lang-bash">git <span class="hljs-built_in">clone</span> https://github.com/OHIF/Viewers.git
-<span class="hljs-built_in">cd</span> Viewers
-</code></pre>
-<ol>
-<li>Install meteor-build-client-fixed2 so you can build the Standalone Viewer</li>
-</ol>
-<pre><code class="lang-bash">npm install -g meteor-build-client-fixed2
-</code></pre>
-<ol>
-<li>Build the Standalone client-only OHIF Viewer</li>
-</ol>
-<pre><code class="lang-bash"><span class="hljs-built_in">cd</span> OHIFViewer/
-METEOR_PACKAGE_DIRS=<span class="hljs-string">&quot;../Packages&quot;</span> meteor npm install
-METEOR_PACKAGE_DIRS=<span class="hljs-string">&quot;../Packages&quot;</span> meteor-build-client-fixed2 ../dockersupport/viewer-google-cloud/build <span class="hljs-_">-s</span> ../config/oidc.json
-</code></pre>
-<ol>
-<li>Build the Docker image</li>
-</ol>
-<pre><code class="lang-bash"><span class="hljs-built_in">cd</span> ../dockersupport/viewer-google-cloud
-docker build -t ohif/viewer-google-cloud .
-</code></pre>
-<ol>
-<li>Run the Docker image using an OAuth Client ID</li>
-</ol>
-<pre><code class="lang-bash">docker run --env CLIENT_ID={<span class="hljs-variable">$someID</span>}.apps.googleusercontent.com --publish 3000:80 ohif/viewer-google-cloud
+<pre><code class="lang-bash">docker run --env CLIENT_ID=<span class="hljs-variable">$CLIENT_ID</span> --publish 3000:80 ohif/viewer:latest
 </code></pre>
 
                                 
@@ -906,7 +861,7 @@ docker build -t ohif/viewer-google-cloud .
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Google Cloud Healthcare","level":"3.2.2.5","depth":3,"next":{"title":"Contributing","level":"4.1","depth":1,"path":"contributing.md","ref":"contributing.md","articles":[]},"previous":{"title":"User Account Control","level":"3.2.2.4","depth":3,"path":"deployment/recipes/user-account-control.md","ref":"deployment/recipes/user-account-control.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"connecting-to-image-archives/google-cloud-healthcare.md","mtime":"2019-07-11T11:49:41.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-07-11T12:00:15.175Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Google Cloud Healthcare","level":"3.2.2.5","depth":3,"next":{"title":"Contributing","level":"4.1","depth":1,"path":"contributing.md","ref":"contributing.md","articles":[]},"previous":{"title":"User Account Control","level":"3.2.2.4","depth":3,"path":"deployment/recipes/user-account-control.md","ref":"deployment/recipes/user-account-control.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"connecting-to-image-archives/google-cloud-healthcare.md","mtime":"2019-07-11T12:08:20.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-07-11T12:18:14.952Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
