@@ -796,8 +796,8 @@ yarn run orthanc:up
 </ol>
 <h4 id="orthanc-learn-more"><a name="orthanc-learn-more" class="plugin-anchor" href="#orthanc-learn-more"><i class="fa fa-link" aria-hidden="true"></i></a>Orthanc: Learn More</h4>
 <p>You can see the <code>docker-compose.yml</code> file this command runs at
-<a href="#"><code>&lt;project-root&gt;/docker/Nginx-Docker/</code></a>, and more on Orthanc for Docker in
-<a href="http://book.orthanc-server.com/users/docker.html" target="_blank">Orthanc&apos;s documentation</a>.</p>
+<a href="https://github.com/OHIF/Viewers/tree/master/platform/viewer/.recipes/Nginx-Orthanc" target="_blank"><code>&lt;project-root&gt;/platform/viewer/.recipes/Nginx-Orthanc/</code></a>,
+and more on Orthanc for Docker in <a href="http://book.orthanc-server.com/users/docker.html" target="_blank">Orthanc&apos;s documentation</a>.</p>
 <h3 id="connecting-to-orthanc"><a name="connecting-to-orthanc" class="plugin-anchor" href="#connecting-to-orthanc"><i class="fa fa-link" aria-hidden="true"></i></a>Connecting to Orthanc</h3>
 <p>Now that we have a local Orthanc instance up and running, we need to configure
 our web application to connect to it. Open a new terminal window, navigate to
@@ -816,21 +816,20 @@ yarn run dev:orthanc
 <p>Let&apos;s take a look at what&apos;s going on under the hood here. <code>yarn run dev:orthanc</code>
 is running the <code>dev:orthanc</code> script in our project&apos;s <code>package.json</code>. That script
 is:</p>
-<pre><code class="lang-js">cross-env PORT=<span class="hljs-number">5000</span> REACT_APP_CONFIG=config/docker_nginx-orthanc.js react-scripts start
+<pre><code class="lang-js">cross-env PORT=<span class="hljs-number">5000</span> APP_CONFIG=config/docker_nginx-orthanc.js react-scripts start
 </code></pre>
 <ul>
 <li><code>cross-env</code> sets two environment variables<ul>
 <li>PORT: 5000</li>
-<li>REACT_APP_CONFIG: <code>config/docker_nginx-orthanc.js</code></li>
+<li>APP_CONFIG: <code>config/docker_nginx-orthanc.js</code></li>
 </ul>
 </li>
 <li><code>react-scripts</code> runs it&apos;s <code>start</code> script. This is <a href="https://github.com/facebook/create-react-app#npm-start-or-yarn-start" target="_blank">the de-facto
 way</a> to run a &quot;Create React App&quot; in development mode.</li>
 </ul>
-<p>The <code>REACT_APP_CONFIG</code> value tells our app which file to load on to
-<code>window.config</code>. By default, our app uses the file at
-<code>&lt;project-root&gt;/public/config/default.js</code>. Here is what that configuration looks
-like:</p>
+<p>The <code>APP_CONFIG</code> value tells our app which file to load on to <code>window.config</code>.
+By default, our app uses the file at <code>&lt;project-root&gt;/public/config/default.js</code>.
+Here is what that configuration looks like:</p>
 <pre><code class="lang-js"><span class="hljs-built_in">window</span>.config = {
   routerBasename: <span class="hljs-string">&apos;/&apos;</span>,
   servers: {
@@ -934,7 +933,7 @@ Here are some of the more popular ones:</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Data Source","level":"1.2.3","depth":2,"next":{"title":"Configuration","level":"1.2.4","depth":2,"path":"essentials/configuration.md","ref":"essentials/configuration.md","articles":[]},"previous":{"title":"Installation","level":"1.2.2","depth":2,"path":"essentials/installation.md","ref":"essentials/installation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"essentials/data-source.md","mtime":"2019-08-06T13:25:17.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-06T13:34:40.314Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Data Source","level":"1.2.3","depth":2,"next":{"title":"Configuration","level":"1.2.4","depth":2,"path":"essentials/configuration.md","ref":"essentials/configuration.md","articles":[]},"previous":{"title":"Installation","level":"1.2.2","depth":2,"path":"essentials/installation.md","ref":"essentials/installation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"essentials/data-source.md","mtime":"2019-08-27T02:19:18.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-27T02:29:33.985Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

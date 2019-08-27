@@ -753,7 +753,7 @@ control.</p>
 <p>Do not use this recipe to host sensitive medical data on the open web. Depending
 on your company&apos;s policies, this may be an appropriate setup on an internal
 network when protected with a server&apos;s basic authentication. For a more robust
-setup, check out our <a href="user-account-control.html">user account control recpie</a>
+setup, check out our <a href="user-account-control.html">user account control recipe</a>
 that builds on the lessons learned here.</p>
 <h2 id="overview"><a name="overview" class="plugin-anchor" href="#overview"><i class="fa fa-link" aria-hidden="true"></i></a>Overview</h2>
 <p>Our two biggest hurdles when hosting our image archive and web client are:</p>
@@ -787,7 +787,7 @@ hosted at <code>http://not-my-website.com</code></p>
 </ol>
 <p>This solution uses the first approach, but you can see an example of the second
 in the <code>docker-compose</code> bundled with this project for local development:
-<a href="#">HERE</a></p>
+<a href="https://github.com/OHIF/Viewers/blob/master/platform/viewer/.recipes/Nginx-Orthanc/docker-compose.yml" target="_blank">HERE</a></p>
 <p>You can read more about CORS in this Medium article: <a href="https://medium.com/@baphemot/understanding-cors-18ad6b478e2b" target="_blank">Understanding
 CORS</a></p>
 <h3 id="diagram"><a name="diagram" class="plugin-anchor" href="#diagram"><i class="fa fa-link" aria-hidden="true"></i></a>Diagram</h3>
@@ -852,9 +852,9 @@ likely want to update:</p>
 <p>The OHIF Viewer&apos;s configuration is imported from a static <code>.js</code> file and made
 available globally at <code>window.config</code>. The configuration we use is set to a
 specific file when we build the viewer, and determined by the env variable:
-<code>REACT_APP_CONFIG</code>. You can see where we set its value in the <code>dockerfile</code> for
-this solution:</p>
-<p><code>ENV REACT_APP_CONFIG=config/docker_openresty-orthanc.js</code></p>
+<code>APP_CONFIG</code>. You can see where we set its value in the <code>dockerfile</code> for this
+solution:</p>
+<p><code>ENV APP_CONFIG=config/docker_openresty-orthanc.js</code></p>
 <p>You can find the configuration we&apos;re using here:
 <code>/public/config/docker_openresty-orthanc.js</code></p>
 <p>To rebuild the <code>webapp</code> image created by our <code>dockerfile</code> after updating the
@@ -1007,7 +1007,7 @@ community members put together:</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Nginx + Image Archive","level":"3.2.2.3","depth":3,"next":{"title":"User Account Control","level":"3.2.2.4","depth":3,"path":"deployment/recipes/user-account-control.md","ref":"deployment/recipes/user-account-control.md","articles":[]},"previous":{"title":"Static","level":"3.2.2.2","depth":3,"path":"deployment/recipes/static-assets.md","ref":"deployment/recipes/static-assets.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"deployment/recipes/nginx--image-archive.md","mtime":"2019-08-06T13:25:17.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-06T13:34:40.314Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Nginx + Image Archive","level":"3.2.2.3","depth":3,"next":{"title":"User Account Control","level":"3.2.2.4","depth":3,"path":"deployment/recipes/user-account-control.md","ref":"deployment/recipes/user-account-control.md","articles":[]},"previous":{"title":"Static","level":"3.2.2.2","depth":3,"path":"deployment/recipes/static-assets.md","ref":"deployment/recipes/static-assets.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"deployment/recipes/nginx--image-archive.md","mtime":"2019-08-27T02:19:18.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-27T02:29:33.985Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
