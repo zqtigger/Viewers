@@ -776,10 +776,10 @@ archive&apos;s web interface)</li>
 <p><em>Not sure if you have <code>docker</code> installed already? Try running <code>docker --version</code>
 in command prompt or terminal</em></p>
 <blockquote>
-<p>If you are using <code>Docker Toolbox</code> you need to change the <em>proxy</em> parameter in
-<em>package.json</em> to <a href="http://192.168.99.100:8042" target="_blank">http://192.168.99.100:8042</a> or the ip docker-machine ip
-throws. This is the value <a href="https://facebook.github.io/create-react-app/docs/proxying-api-requests-in-development#configuring-the-proxy-manually" target="_blank"><code>react-scripts</code></a> uses to proxy
-requests</p>
+<p>If you are using <code>Docker Toolbox</code> you need to change the <em>PROXY_DOMAIN</em>
+parameter in <em>platform/viewer/package.json</em> to <a href="http://192.168.99.100:8042" target="_blank">http://192.168.99.100:8042</a> or
+the ip docker-machine ip throws. This is the value <a href="https://webpack.js.org/configuration/dev-server/#devserverproxy" target="_blank"><code>WebPack</code></a>
+uses to proxy requests</p>
 </blockquote>
 <h3 id="running-orthanc"><a name="running-orthanc" class="plugin-anchor" href="#running-orthanc"><i class="fa fa-link" aria-hidden="true"></i></a>Running Orthanc</h3>
 <p><em>Start Orthanc:</em></p>
@@ -788,21 +788,25 @@ yarn run orthanc:up
 </code></pre>
 <p><em>Upload your first Study:</em></p>
 <ol>
-<li>Navigate to <a href="http://localhost:8899" target="_blank">Orthanc&apos;s web interface</a> at
-<code>http://localhost:8899</code> in a web browser.</li>
+<li>Navigate to
+<a href="http://localhost:8042/app/explorer.html" target="_blank">Orthanc&apos;s web interface</a> at
+<code>http://localhost:8042/app/explorer.html</code> in a web browser.</li>
 <li>In the top right corner, click &quot;Upload&quot;</li>
 <li>Click &quot;Select files to upload...&quot; and select one or more DICOM files</li>
 <li>Click &quot;Start the upload&quot;</li>
 </ol>
 <h4 id="orthanc-learn-more"><a name="orthanc-learn-more" class="plugin-anchor" href="#orthanc-learn-more"><i class="fa fa-link" aria-hidden="true"></i></a>Orthanc: Learn More</h4>
 <p>You can see the <code>docker-compose.yml</code> file this command runs at
-<a href="https://github.com/OHIF/Viewers/tree/master/platform/viewer/.recipes/Nginx-Orthanc" target="_blank"><code>&lt;project-root&gt;/platform/viewer/.recipes/Nginx-Orthanc/</code></a>,
-and more on Orthanc for Docker in <a href="http://book.orthanc-server.com/users/docker.html" target="_blank">Orthanc&apos;s documentation</a>.</p>
+<a href="https://github.com/OHIF/Viewers/tree/master/.docker/Nginx-Orthanc" target="_blank"><code>&lt;project-root&gt;/.docker/Nginx-Orthanc/</code></a>, and more on
+Orthanc for Docker in <a href="http://book.orthanc-server.com/users/docker.html" target="_blank">Orthanc&apos;s documentation</a>.</p>
 <h3 id="connecting-to-orthanc"><a name="connecting-to-orthanc" class="plugin-anchor" href="#connecting-to-orthanc"><i class="fa fa-link" aria-hidden="true"></i></a>Connecting to Orthanc</h3>
 <p>Now that we have a local Orthanc instance up and running, we need to configure
 our web application to connect to it. Open a new terminal window, navigate to
-this project&apos;s root directory, and run:</p>
-<pre><code class="lang-bash"><span class="hljs-comment"># If you haven&apos;t already, restore dependencies</span>
+this repository&apos;s root directory, and run:</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># If you haven&apos;t already, enable yarn workspaces</span>
+yarn config <span class="hljs-built_in">set</span> workspaces-experimental <span class="hljs-literal">true</span>
+
+<span class="hljs-comment"># Restore dependencies</span>
 yarn install
 
 <span class="hljs-comment"># Run our dev command, but with the local orthanc config</span>
@@ -816,20 +820,25 @@ yarn run dev:orthanc
 <p>Let&apos;s take a look at what&apos;s going on under the hood here. <code>yarn run dev:orthanc</code>
 is running the <code>dev:orthanc</code> script in our project&apos;s <code>package.json</code>. That script
 is:</p>
-<pre><code class="lang-js">cross-env PORT=<span class="hljs-number">5000</span> APP_CONFIG=config/docker_nginx-orthanc.js react-scripts start
+<pre><code class="lang-js">cross-env NODE_ENV=development PROXY_TARGET=<span class="hljs-regexp">/dicom-web PROXY_DOMAIN=http:/</span><span class="hljs-regexp">/localhost:8042 APP_CONFIG=config/</span>docker_nginx-orthanc.js webpack-dev-server --config .webpack/webpack.pwa.js -w
 </code></pre>
 <ul>
-<li><code>cross-env</code> sets two environment variables<ul>
-<li>PORT: 5000</li>
+<li><code>cross-env</code> sets three environment variables<ul>
+<li>PROXY_TARGET: <code>/dicom-web</code></li>
+<li>PROXY_DOMAIN: <code>http://localhost:8042</code></li>
 <li>APP_CONFIG: <code>config/docker_nginx-orthanc.js</code></li>
 </ul>
 </li>
-<li><code>react-scripts</code> runs it&apos;s <code>start</code> script. This is <a href="https://github.com/facebook/create-react-app#npm-start-or-yarn-start" target="_blank">the de-facto
-way</a> to run a &quot;Create React App&quot; in development mode.</li>
+<li><code>webpack-dev-server</code> runs using the <code>.webpack/webpack.pwa.js</code> configuration
+file. It will watch for changes and update as we develop.</li>
 </ul>
+<p><code>PROXY_TARGET</code> and <code>PROXY_DOMAIN</code> tell our development server to proxy requests
+to <code>Orthanc</code>. This allows us to bypass CORS issues that normally occur when
+requesting resources that live at a different domain.</p>
 <p>The <code>APP_CONFIG</code> value tells our app which file to load on to <code>window.config</code>.
-By default, our app uses the file at <code>&lt;project-root&gt;/public/config/default.js</code>.
-Here is what that configuration looks like:</p>
+By default, our app uses the file at
+<code>&lt;project-root&gt;/platform/viewer/public/config/default.js</code>. Here is what that
+configuration looks like:</p>
 <pre><code class="lang-js"><span class="hljs-built_in">window</span>.config = {
   routerBasename: <span class="hljs-string">&apos;/&apos;</span>,
   servers: {
@@ -933,7 +942,7 @@ Here are some of the more popular ones:</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Data Source","level":"1.2.3","depth":2,"next":{"title":"Configuration","level":"1.2.4","depth":2,"path":"essentials/configuration.md","ref":"essentials/configuration.md","articles":[]},"previous":{"title":"Installation","level":"1.2.2","depth":2,"path":"essentials/installation.md","ref":"essentials/installation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"essentials/data-source.md","mtime":"2019-09-04T20:22:59.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-04T20:34:16.790Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Data Source","level":"1.2.3","depth":2,"next":{"title":"Configuration","level":"1.2.4","depth":2,"path":"essentials/configuration.md","ref":"essentials/configuration.md","articles":[]},"previous":{"title":"Installation","level":"1.2.2","depth":2,"path":"essentials/installation.md","ref":"essentials/installation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"essentials/data-source.md","mtime":"2019-09-05T13:01:26.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-05T13:11:19.688Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

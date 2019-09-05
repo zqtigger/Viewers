@@ -764,8 +764,7 @@ graphic that illustrates this setup</a>.</p>
 <p>Alternatively, if you intend to use the OHIF Viewer as a starting point, and you
 aren&apos;t as concerned with syncing updates, then follow these steps:</p>
 <ol>
-<li>Navigate to the <a href="https://github.com/OHIF/Viewers/tree/react" target="_blank">OHIF/Viewers/tree/react</a> repository
-and branch</li>
+<li>Navigate to the <a href="https://github.com/OHIF/Viewers" target="_blank">OHIF/Viewers</a> repository</li>
 <li>Click <code>Clone or download</code>, and then <code>Download ZIP</code></li>
 <li>Use the contents of the <code>.zip</code> file as a starting point for your viewer</li>
 </ol>
@@ -779,6 +778,10 @@ separate, forked repository setup described in &quot;Fork &amp; Clone&quot;</p>
 <ul>
 <li><a href="https://nodejs.org/en/" target="_blank">Node.js &amp; NPM</a></li>
 <li><a href="https://yarnpkg.com/en/" target="_blank">Yarn</a></li>
+<li>Yarn workspaces should be enabled:<ul>
+<li><code>yarn config set workspaces-experimental true</code></li>
+</ul>
+</li>
 </ul>
 <h3 id="kick-the-tires"><a name="kick-the-tires" class="plugin-anchor" href="#kick-the-tires"><i class="fa fa-link" aria-hidden="true"></i></a>Kick the tires</h3>
 <p>Navigate to the root of the project&apos;s directory in your terminal and run the
@@ -787,18 +790,15 @@ following commands:</p>
 yarn install
 
 <span class="hljs-comment"># Start local development server</span>
-yarn start
+yarn run dev
 </code></pre>
 <p>You should see the following output:</p>
-<pre><code class="lang-bash">Compiled successfully!
+<pre><code class="lang-bash">@ohif/viewer: i &#xFF62;wds&#xFF63;: Project is running at http://localhost:3000/
+@ohif/viewer: i &#xFF62;wds&#xFF63;: webpack output is served from /
+@ohif/viewer: i &#xFF62;wds&#xFF63;: Content not from webpack is served from D:\code\ohif\Viewers\platform\viewer
+@ohif/viewer: i &#xFF62;wds&#xFF63;: 404s will fallback to /index.html
 
-You can now view ohif-viewer <span class="hljs-keyword">in</span> the browser.
-
-  Local:            http://localhost:3000/
-  On Your Network:  http://10.74.20.83:3000/
-
-Note that the development build is not optimized.
-To create a production build, use yarn build.
+<span class="hljs-comment"># And a list of all generated files</span>
 </code></pre>
 <h3 id="&#x1F389;-celebrate-&#x1F389;"><a name="&#x1F389;-celebrate-&#x1F389;" class="plugin-anchor" href="#&#x1F389;-celebrate-&#x1F389;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x1F389; Celebrate &#x1F389;</h3>
 <center>
@@ -812,13 +812,15 @@ To create a production build, use yarn build.
 <a href="../deployment/">deployment docs</a></p>
 </blockquote>
 <pre><code class="lang-bash"><span class="hljs-comment"># Build static assets to host a PWA</span>
-yarn run build:web
+yarn run build
 
-<span class="hljs-comment"># Build packaged output</span>
+<span class="hljs-comment"># Build packaged output (script-tag use)</span>
 yarn run build:package
 </code></pre>
 <h2 id="next-steps"><a name="next-steps" class="plugin-anchor" href="#next-steps"><i class="fa fa-link" aria-hidden="true"></i></a>Next Steps</h2>
-<p>...</p>
+<p>Take a look at the sidebar. Depending on how you intend to use The OHIF Viewer,
+different topics may be more pertinent than others. At a minimum, reading &quot;The
+Essentials&quot; and the deployment recipes should be a good starting point.</p>
 <h2 id="troubleshooting"><a name="troubleshooting" class="plugin-anchor" href="#troubleshooting"><i class="fa fa-link" aria-hidden="true"></i></a>Troubleshooting</h2>
 <ul>
 <li>If you receive a <em>&quot;No Studies Found&quot;</em> message and do not see your studies, try
@@ -873,7 +875,7 @@ JavaScript console inside the Developer Tools to identify any errors.</li>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Getting Started","level":"1.2.1","depth":2,"next":{"title":"Installation","level":"1.2.2","depth":2,"path":"essentials/installation.md","ref":"essentials/installation.md","articles":[]},"previous":{"title":"Essentials","level":"1.2","depth":1,"ref":"","articles":[{"title":"Getting Started","level":"1.2.1","depth":2,"path":"essentials/getting-started.md","ref":"essentials/getting-started.md","articles":[]},{"title":"Installation","level":"1.2.2","depth":2,"path":"essentials/installation.md","ref":"essentials/installation.md","articles":[]},{"title":"Data Source","level":"1.2.3","depth":2,"path":"essentials/data-source.md","ref":"essentials/data-source.md","articles":[]},{"title":"Configuration","level":"1.2.4","depth":2,"path":"essentials/configuration.md","ref":"essentials/configuration.md","articles":[]},{"title":"Themeing","level":"1.2.5","depth":2,"path":"essentials/themeing.md","ref":"essentials/themeing.md","articles":[]},{"title":"Translating","level":"1.2.6","depth":2,"path":"essentials/translating.md","ref":"essentials/translating.md","articles":[]},{"title":"Troubleshooting","level":"1.2.7","depth":2,"path":"essentials/troubleshooting.md","ref":"essentials/troubleshooting.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"essentials/getting-started.md","mtime":"2019-09-04T20:22:59.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-04T20:34:16.790Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Getting Started","level":"1.2.1","depth":2,"next":{"title":"Installation","level":"1.2.2","depth":2,"path":"essentials/installation.md","ref":"essentials/installation.md","articles":[]},"previous":{"title":"Essentials","level":"1.2","depth":1,"ref":"","articles":[{"title":"Getting Started","level":"1.2.1","depth":2,"path":"essentials/getting-started.md","ref":"essentials/getting-started.md","articles":[]},{"title":"Installation","level":"1.2.2","depth":2,"path":"essentials/installation.md","ref":"essentials/installation.md","articles":[]},{"title":"Data Source","level":"1.2.3","depth":2,"path":"essentials/data-source.md","ref":"essentials/data-source.md","articles":[]},{"title":"Configuration","level":"1.2.4","depth":2,"path":"essentials/configuration.md","ref":"essentials/configuration.md","articles":[]},{"title":"Themeing","level":"1.2.5","depth":2,"path":"essentials/themeing.md","ref":"essentials/themeing.md","articles":[]},{"title":"Translating","level":"1.2.6","depth":2,"path":"essentials/translating.md","ref":"essentials/translating.md","articles":[]},{"title":"Troubleshooting","level":"1.2.7","depth":2,"path":"essentials/troubleshooting.md","ref":"essentials/troubleshooting.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"essentials/getting-started.md","mtime":"2019-09-05T13:01:26.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-05T13:11:19.688Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

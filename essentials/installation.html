@@ -745,37 +745,43 @@
 <p>It&apos;s important to know that the OHIF Viewer project provides two different build
 processes:</p>
 <pre><code class="lang-bash"><span class="hljs-comment"># Static Asset output: For deploying PWAs</span>
-yarn run build:web
+yarn run build
 
 <span class="hljs-comment"># Single `.js` script, for embedding viewer into existing apps</span>
 yarn run build:package
 </code></pre>
-<h2 id="create-react-app-pwa"><a name="create-react-app-pwa" class="plugin-anchor" href="#create-react-app-pwa"><i class="fa fa-link" aria-hidden="true"></i></a>create-react-app (PWA)</h2>
+<h2 id="progressive-web-application-pwa"><a name="progressive-web-application-pwa" class="plugin-anchor" href="#progressive-web-application-pwa"><i class="fa fa-link" aria-hidden="true"></i></a>Progressive Web Application (PWA)</h2>
 <blockquote>
-<p><a href="https://github.com/facebook/create-react-app" target="_blank">create-react-app</a> provides
-pre-configured build process for developing front-end applications with
-<a href="https://reactjs.org/" target="_blank">React</a>.</p>
+<p><a href="https://developers.google.com/web/progressive-web-apps/" target="_blank">Progressive Web Apps</a> are a new breed of web applications that meet the
+<a href="https://developers.google.com/web/progressive-web-apps/checklist" target="_blank">following requirements</a>. Notably, targeting a PWA allows us
+provide a reliable, fast, and engaging experience across different devices and
+network conditions.</p>
 </blockquote>
-<p>The ohif-viewer package can be run as a create-react-app application. This is
-useful for development, debugging, or evolving the OHIF Viewer into your own
-custom imaging application.</p>
+<p>The OHIF Viewer is maintained as a <a href="https://github.com/OHIF/Viewers/issues/768" target="_blank">monorepo</a>. We use WebPack to build
+the many small static assets that comprise our application. Also generated is an
+<code>index.html</code> that will serve as an entry point for loading configuration and the
+application, as well as a <code>service-worker</code> that can intelligently cache files so
+that subsequent requests are from the local file system instead of over the
+network.</p>
 <p>You can read more about this particular strategy in our
 <a href="../deployment/recipes/build-for-production.html">Build for Production Deployment Guide</a></p>
-<h2 id="rollup-packaged-script"><a name="rollup-packaged-script" class="plugin-anchor" href="#rollup-packaged-script"><i class="fa fa-link" aria-hidden="true"></i></a>Rollup (Packaged Script)</h2>
-<blockquote>
-<p><a href="https://rollupjs.org/guide/en" target="_blank">Rollup</a> is a module bundler for JavaScript. It
-uses the new standardized format for code modules included in the ES6 revision
-of JavaScript.</p>
-</blockquote>
-<p>The <a href="https://www.npmjs.com/package/ohif-viewer" target="_blank">ohif-viewer</a> package can be
-built with Rollup to provide a set of React components which can be dropped into
-a larger application. Specifically, the ohif-viewer package provides a React
-component named <code>OHIFViewer</code> which is the entire viewer, configurable via React
-<code>props</code>. This is useful for including the OHIF Viewer in a larger web
-application, as the entire application can be provided via a <code>&lt;script&gt;</code> tag with
-no build process required.</p>
+<h2 id="commonjs-bundle-packaged-script"><a name="commonjs-bundle-packaged-script" class="plugin-anchor" href="#commonjs-bundle-packaged-script"><i class="fa fa-link" aria-hidden="true"></i></a>Commonjs Bundle (Packaged Script)</h2>
+<p>The <a href="https://www.npmjs.com/package/@ohif/viewer" target="_blank">@ohif/viewer</a> package is built with WebPack to provide a React
+component that can be dropped into a larger application. The <code>OHIFViewer</code>
+component is the entire viewer, configurable via React <code>props</code>. This is useful
+for including the OHIF Viewer in a larger web application, as the entire
+application can be provided via a <code>&lt;script&gt;</code> tag with no build process required.</p>
+<p>The bundle is not as performant or as optimized as the PWA build. It includes
+fonts, styles, and the core extensions. If you find yourself facing performance
+issues, you may wish to tweak what&apos;s included in this bundle or switch to the
+PWA build.</p>
 <p>You can read more about this particular strategy in our
 <a href="../deployment/recipes/embedded-viewer.html">Embedded Viewer Deployment Guide</a></p>
+<!--
+  Links
+  -->
+<!-- prettier-ignore-start -->
+<!-- prettier-ignore-end -->
 
                                 
                                 </section>
@@ -820,7 +826,7 @@ no build process required.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Installation","level":"1.2.2","depth":2,"next":{"title":"Data Source","level":"1.2.3","depth":2,"path":"essentials/data-source.md","ref":"essentials/data-source.md","articles":[]},"previous":{"title":"Getting Started","level":"1.2.1","depth":2,"path":"essentials/getting-started.md","ref":"essentials/getting-started.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"essentials/installation.md","mtime":"2019-09-04T20:22:59.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-04T20:34:16.790Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Installation","level":"1.2.2","depth":2,"next":{"title":"Data Source","level":"1.2.3","depth":2,"path":"essentials/data-source.md","ref":"essentials/data-source.md","articles":[]},"previous":{"title":"Getting Started","level":"1.2.1","depth":2,"path":"essentials/getting-started.md","ref":"essentials/getting-started.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"essentials/installation.md","mtime":"2019-09-05T13:01:26.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-05T13:11:19.688Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
