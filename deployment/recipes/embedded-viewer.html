@@ -754,13 +754,8 @@ dependencies:</li>
 </ol>
 <ul>
   <li>
-    <a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" target="_blank">
-      <code>bootstrap@3.3.7</code>
-    </a>
-  </li>
-  <li>
-    <a href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Sanchez&amp;display=swap" target="_blank">
-      <code>Google Fonts, Sanchez &amp; Roboto</code>
+    <a href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700&amp;display=swap" target="_blank">
+      <code>Google Font: Roboto</code>
     </a>
   </li>
   <li>
@@ -774,15 +769,13 @@ dependencies:</li>
     </a>
   </li>
   <li>
-    <a href="https://unpkg.com/ohif-viewer/dist/index.umd.js" target="_blank">
-      <code>ohif-viewer@latest</code>
+    <a href="https://unpkg.com/@ohif/viewer" target="_blank">
+      <code>@ohif/viewer@latest</code>
     </a>
   </li>
 </ul>
 
 <ol start="2">
-  <li>The <a href="">WADO Image Loader Codecs and Web Worker source code</a>
-  should be accessible from your server&apos;s root</li>
   <li>Create a JS Object to hold the OHIF Viewer&apos;s configuration. Here are some
    example values that would allow the viewer to hit our public PACS:</li>
 </ol>
@@ -813,7 +806,7 @@ dependencies:</li>
   Render the viewer in the web page&apos;s target <code>div</code>
 </li></ol>
 
-<pre><code class="lang-js"><span class="hljs-comment">// Made available by the `ohif-viewer` script included in step 1</span>
+<pre><code class="lang-js"><span class="hljs-comment">// Made available by the `@ohif/viewer` script included in step 1</span>
 <span class="hljs-keyword">var</span> Viewer = <span class="hljs-built_in">window</span>.OHIFStandaloneViewer.App;
 <span class="hljs-keyword">var</span> app = React.createElement(Viewer, <span class="hljs-built_in">window</span>.config, <span class="hljs-literal">null</span>);
 
@@ -827,16 +820,19 @@ ReactDOM.render(app, <span class="hljs-built_in">document</span>.getElementById(
 you&apos;re still having trouble, feel free to search or GitHub issues. Can&apos;t find
 anything related your problem? Create a new one.</p>
 <blockquote>
-<p>When I include bootstrap, other styles on my page no longer work correctly.
-What can I do?</p>
+<p>My application&apos;s styles are impacting the OHIF Viewer&apos;s look and feel. What
+can I do?</p>
 </blockquote>
-<p>When we include <code>bootsrap</code> (and the other dependencies), they are added
-globally. This has the potential of causing conflicts with other scripts and
-styles on the page. To prevent this, <code>embed</code> the viewer in a new/empty web page.
-Have that working? Good. Now <code>embed</code> that new page using an
+<p>When you include stylesheets and scripts, they are added globally. This has the
+potential of causing conflicts with other scripts and styles on the page. To
+prevent this, <code>embed</code> the viewer in a new/empty web page. Have that working?
+Good. Now <code>embed</code> that new page using an
 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe" target="_blank"><code>&lt;iframe&gt;</code> element</a>.</p>
 <p>This should produce the expected result while also protecting your page from any
 globally defined styles/scripts.</p>
+<!--
+  LINKS
+  -->
 
                                 
                                 </section>
@@ -873,7 +869,7 @@ globally defined styles/scripts.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Embedding the Viewer","level":"3.2.1.1","depth":3,"next":{"title":"Stand-Alone","level":"3.2.2","depth":2,"ref":"","articles":[{"title":"Build for Production","level":"3.2.2.1","depth":3,"path":"deployment/recipes/build-for-production.md","ref":"deployment/recipes/build-for-production.md","articles":[]},{"title":"Static","level":"3.2.2.2","depth":3,"path":"deployment/recipes/static-assets.md","ref":"deployment/recipes/static-assets.md","articles":[]},{"title":"Nginx + Image Archive","level":"3.2.2.3","depth":3,"path":"deployment/recipes/nginx--image-archive.md","ref":"deployment/recipes/nginx--image-archive.md","articles":[]},{"title":"User Account Control","level":"3.2.2.4","depth":3,"path":"deployment/recipes/user-account-control.md","ref":"deployment/recipes/user-account-control.md","articles":[]},{"title":"Google Cloud Healthcare","level":"3.2.2.5","depth":3,"path":"connecting-to-image-archives/google-cloud-healthcare.md","ref":"connecting-to-image-archives/google-cloud-healthcare.md","articles":[]}]},"previous":{"title":"Script Include","level":"3.2.1","depth":2,"ref":"","articles":[{"title":"Embedding the Viewer","level":"3.2.1.1","depth":3,"path":"deployment/recipes/embedded-viewer.md","ref":"deployment/recipes/embedded-viewer.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"deployment/recipes/embedded-viewer.md","mtime":"2019-09-05T13:01:26.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-05T13:11:19.688Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Embedding the Viewer","level":"3.2.1.1","depth":3,"next":{"title":"Stand-Alone","level":"3.2.2","depth":2,"ref":"","articles":[{"title":"Build for Production","level":"3.2.2.1","depth":3,"path":"deployment/recipes/build-for-production.md","ref":"deployment/recipes/build-for-production.md","articles":[]},{"title":"Static","level":"3.2.2.2","depth":3,"path":"deployment/recipes/static-assets.md","ref":"deployment/recipes/static-assets.md","articles":[]},{"title":"Nginx + Image Archive","level":"3.2.2.3","depth":3,"path":"deployment/recipes/nginx--image-archive.md","ref":"deployment/recipes/nginx--image-archive.md","articles":[]},{"title":"User Account Control","level":"3.2.2.4","depth":3,"path":"deployment/recipes/user-account-control.md","ref":"deployment/recipes/user-account-control.md","articles":[]},{"title":"Google Cloud Healthcare","level":"3.2.2.5","depth":3,"path":"connecting-to-image-archives/google-cloud-healthcare.md","ref":"connecting-to-image-archives/google-cloud-healthcare.md","articles":[]}]},"previous":{"title":"Script Include","level":"3.2.1","depth":2,"ref":"","articles":[{"title":"Embedding the Viewer","level":"3.2.1.1","depth":3,"path":"deployment/recipes/embedded-viewer.md","ref":"deployment/recipes/embedded-viewer.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"deployment/recipes/embedded-viewer.md","mtime":"2019-09-06T01:30:08.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-06T01:43:53.188Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

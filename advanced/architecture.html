@@ -751,42 +751,76 @@ allows our code to be used in more ways, it also increases complexity. Below, we
 aim to demistify that complexity by providing insight into how our Viewer is
 architected, and the role each of it&apos;s dependent libraries plays.</p>
 <h2 id="overview"><a name="overview" class="plugin-anchor" href="#overview"><i class="fa fa-link" aria-hidden="true"></i></a>Overview</h2>
-<p>The <a href="https://github.com/OHIF/Viewers" target="_blank"><code>OHIF/Viewers</code></a> project contains the source code for the
-OHIF Medical Imaging Viewer. It is effectively a React <a href="https://developers.google.com/web/progressive-web-apps/" target="_blank">progressive web
-app</a> (PWA) that combines the business logic housed in
-<a href="https://github.com/OHIF/ohif-core" target="_blank"><code>OHIF/ohif-core</code></a> and the components in our React Component library
-<a href="https://github.com/OHIF/react-viewerbase" target="_blank"><code>OHIF/react-viewerbase</code></a>. It provides customization for
-common use cases through <a href="../essentials/configuration.html">configuration</a> and for adding
-functionality via <a href="extensions.m">extensions</a>.</p>
+<p>The <a href="https://github.com/OHIF/Viewers" target="_blank">OHIF Medical Image Viewing Platform</a> is maintained as a
+[<code>monorepo</code>][monorepo]. This means that this repository, instead of containing a
+single project, contains many projects. If you explore our project structure,
+you&apos;ll see the following:</p>
+<pre><code class="lang-bash">.
+&#x251C;&#x2500;&#x2500; extensions
+&#x2502;   &#x251C;&#x2500;&#x2500; _example            <span class="hljs-comment"># Skeleton of example extension</span>
+&#x2502;   &#x251C;&#x2500;&#x2500; cornerstone         <span class="hljs-comment"># 2D images w/ Cornerstone.js</span>
+&#x2502;   &#x251C;&#x2500;&#x2500; dicom-html          <span class="hljs-comment"># Structured Reports as HTML in viewport</span>
+&#x2502;   &#x251C;&#x2500;&#x2500; dicom-microscopy    <span class="hljs-comment"># Whole slide microscopy viewing</span>
+&#x2502;   &#x251C;&#x2500;&#x2500; dicom-pdf           <span class="hljs-comment"># View DICOM wrapped PDFs in viewport</span>
+&#x2502;   &#x2514;&#x2500;&#x2500; vtk                 <span class="hljs-comment"># MPR and Volume support w/ VTK.js</span>
+&#x2502;
+&#x251C;&#x2500;&#x2500; platform
+&#x2502;   &#x251C;&#x2500;&#x2500; core                <span class="hljs-comment"># Business Logic</span>
+&#x2502;   &#x251C;&#x2500;&#x2500; i18n                <span class="hljs-comment"># Internationalization Support</span>
+&#x2502;   &#x251C;&#x2500;&#x2500; ui                  <span class="hljs-comment"># React component library</span>
+&#x2502;   &#x2514;&#x2500;&#x2500; viewer              <span class="hljs-comment"># Connects platform and extension projects</span>
+&#x2502;
+&#x251C;&#x2500;&#x2500; ...                     <span class="hljs-comment"># misc. shared configuration</span>
+&#x251C;&#x2500;&#x2500; lerna.json              <span class="hljs-comment"># MonoRepo (Lerna) settings</span>
+&#x251C;&#x2500;&#x2500; package.json            <span class="hljs-comment"># Shared devDependencies and commands</span>
+&#x2514;&#x2500;&#x2500; README.md
+</code></pre>
+<p>Continue reading to see how these libraries work together to create the OHIF
+Viewer.</p>
 <h3 id="business-logic"><a name="business-logic" class="plugin-anchor" href="#business-logic"><i class="fa fa-link" aria-hidden="true"></i></a>Business Logic</h3>
-<p>Our goal is to maintain the majority of our business logic in
-<a href="https://github.com/OHIF/ohif-core" target="_blank"><code>OHIF/ohif-core</code></a>. <code>ohif-core</code> offers
-pre-packaged solutions for features common to Web-based medical imaging viewers.
-For example:</p>
+<p>The <a href="https://github.com/OHIF/viewers/platform/core" target="_blank"><code>@ohif/core</code></a> project offers pre-packaged solutions for
+features common to Web-based medical imaging viewers. For example:</p>
 <ul>
 <li>Hotkeys</li>
-<li>DICOM Web</li>
+<li>DICOM Web requests</li>
 <li>Hanging Protocols</li>
 <li>Managing a study&apos;s measurements</li>
 <li>Managing a study&apos;s DICOM metadata</li>
 <li>A flexible pattern for extensions</li>
-<li><a href="https://github.com/OHIF/ohif-core/blob/master/src/index.js#L49-L69" target="_blank">And many others</a></li>
+<li>And many others</li>
 </ul>
 <p>It does this while remaining decoupled from any particular view library or
 rendering logic. While we use it to power our React Viewer, it can be used with
 Vue, React, Vanilla JS, or any number of other frameworks.</p>
 <h3 id="react-component-library"><a name="react-component-library" class="plugin-anchor" href="#react-component-library"><i class="fa fa-link" aria-hidden="true"></i></a>React Component Library</h3>
-<p><a href="https://github.com/OHIF/react-viewerbase" target="_blank"><code>OHIF/react-viewerbase</code></a> is a React
-Component library that contains the reusable components that power the OHIF
-Viewer. It allows us to build, compose, and test components in isolation; easing
-the development process by reducing the need to stand-up a local PACS with test
-case data.</p>
+<p><a href="https://github.com/OHIF/Viewers/platform/ui" target="_blank"><code>@ohif/ui</code></a> is a React Component library that contains the reusable
+components that power the OHIF Viewer. It allows us to build, compose, and test
+components in isolation; easing the development process by reducing the need to
+stand-up a local PACS with test case data.</p>
+<p>Extension authors can also use these same components when building their
+extension&apos;s UI; allowing for a consistent look and feel with the rest of the
+application.</p>
 <p><a href="https://react.ohif.org/" target="_blank">Check out our component library!</a></p>
-<h3 id="misc-extensions"><a name="misc-extensions" class="plugin-anchor" href="#misc-extensions"><i class="fa fa-link" aria-hidden="true"></i></a>Misc. Extensions</h3>
-<p>Want to add custom logic or UI Components to the OHIF Viewer, but don&apos;t want to
-maintain a fork? We expose common integration points via
-<a href="extensions.html">extensions</a> to make that possible. For a list of extensions
-maintained by OHIF,
+<h3 id="internationalization-i18n"><a name="internationalization-i18n" class="plugin-anchor" href="#internationalization-i18n"><i class="fa fa-link" aria-hidden="true"></i></a>Internationalization (i18n)</h3>
+<p>...</p>
+<h3 id="the-viewer"><a name="the-viewer" class="plugin-anchor" href="#the-viewer"><i class="fa fa-link" aria-hidden="true"></i></a>The Viewer</h3>
+<p>...</p>
+<h3 id="extensions--configuration"><a name="extensions--configuration" class="plugin-anchor" href="#extensions--configuration"><i class="fa fa-link" aria-hidden="true"></i></a>Extensions &amp; Configuration</h3>
+<p>While OHIF maintains several high value and commonly requested features in its
+own extensions, there are many instances where one may wish to further extend
+the viewer. Some common use cases include:</p>
+<ul>
+<li>Adding AI/ML tools and insights</li>
+<li>Custom workflows for guided diagnosis</li>
+<li>Collecting specific annotations for training data or reports</li>
+<li>Authentication and granular permissions</li>
+<li>Teleconsultation workflow, image comments, and tracking</li>
+<li>Adding surgical templating tools and reports</li>
+<li>and many others</li>
+</ul>
+<p>We expose common integration points via <a href="extensions.html">extensions</a> to make
+this possible. The viewer and many of our own extensions also offer
+<a href="../essentials/configuration.html">configuration</a>. For a list of extensions maintained by OHIF,
 <a href="extensions.html#ohif-maintained-extensions">check out this helpful table</a>.</p>
 <p>If you find yourself thinking &quot;I wish the Viewer could do X&quot;, and you can&apos;t
 accomplish it with an extension today, create a GitHub issue! We&apos;re actively
@@ -795,32 +829,31 @@ looking for ways to improve our extensibility ^_^</p>
 <h3 id="diagram"><a name="diagram" class="plugin-anchor" href="#diagram"><i class="fa fa-link" aria-hidden="true"></i></a>Diagram</h3>
 <p>This diagram is a conceptual illustration of how the Viewer is architected.</p>
 <ol>
-<li>(optional) <code>extensions</code> can be registered with <code>ohif-core</code>&apos;s extension
+<li>(optional) <code>extensions</code> can be registered with <code>@ohif/core</code>&apos;s extension
 manager</li>
-<li><code>ohif-core</code> provides bussiness logic and a way for <code>viewer</code> to access
+<li><code>@ohif/core</code> provides bussiness logic and a way for <code>@ohif/viewer</code> to access
 registered extensions</li>
-<li>The <code>viewer</code> composes and provides data to components from our component
-library (<code>react-viewerbase</code>)</li>
-<li>The <code>viewer</code> can be built and served as a stand-alone PWA, or as an
-embeddable package
-(<a href="https://www.npmjs.com/package/ohif-viewer" target="_blank"><code>ohif-viewer</code></a>)</li>
+<li>The <code>@ohif/viewer</code> composes and provides data to components from our
+component library (<code>@ohif/ui</code>)</li>
+<li>The <code>@ohif/viewer</code> can be built and served as a stand-alone PWA, or as an
+embeddable package (<a href="https://www.npmjs.com/package/@ohif/viewer" target="_blank"><code>@ohif/viewer</code></a>)</li>
 </ol>
 <p><img src="../assets/img/architecture-diagram.png" alt="Architecture Diagram"></p>
 <center><i>architecture diagram</i></center>
 
 <h2 id="common-questions"><a name="common-questions" class="plugin-anchor" href="#common-questions"><i class="fa fa-link" aria-hidden="true"></i></a>Common Questions</h2>
 <blockquote>
-<p>When should I use the packaged source <code>ohif-viewer</code> versus building a PWA from
-the source?</p>
+<p>When should I use the packaged source <code>@ohif/viewer</code> versus building a PWA
+from the source?</p>
 </blockquote>
 <p>...</p>
 <blockquote>
 <p>Can I create my own Viewer using Vue.js or Angular.js?</p>
 </blockquote>
 <p>You can, but you will not be able to leverage as much of the existing code and
-components. <code>ohif-core</code> could still be used for business logic, and to provide a
-model for extensions. <code>react-viewerbase</code> would then become a guide for the
-components you would need to recreate.</p>
+components. <code>@ohif/core</code> could still be used for business logic, and to provide
+a model for extensions. <code>@ohif/ui</code> would then become a guide for the components
+you would need to recreate.</p>
 <!--
   Links
   -->
@@ -870,7 +903,7 @@ components you would need to recreate.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Architecture","level":"2.2","depth":1,"next":{"title":"Overview","level":"2.2.1","depth":2,"anchor":"#overview","path":"advanced/architecture.md","ref":"advanced/architecture.md#overview","articles":[]},"previous":{"title":"Advanced","level":"2.1","depth":1,"path":"advanced/index.md","ref":"advanced/index.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"advanced/architecture.md","mtime":"2019-09-05T13:01:25.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-05T13:11:19.688Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Architecture","level":"2.2","depth":1,"next":{"title":"Overview","level":"2.2.1","depth":2,"anchor":"#overview","path":"advanced/architecture.md","ref":"advanced/architecture.md#overview","articles":[]},"previous":{"title":"Advanced","level":"2.1","depth":1,"path":"advanced/index.md","ref":"advanced/index.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"advanced/architecture.md","mtime":"2019-09-06T01:30:08.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-06T01:43:53.188Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
