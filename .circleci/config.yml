@@ -21,6 +21,15 @@ executors:
       - image: 'cypress/browsers:node10.16.0-chrome77'
         environment:
           CYPRESS_BASE_URL: https://ohif-staging.netlify.com/
+  with-chrome:
+    docker:
+      # Primary container image where all steps run.
+      - image: 'cypress/browsers:chrome76'
+      # http://couchdb:5984
+      - image: 'couchdb:2.3.1'
+        name: 'couchdb'
+      - image: 'ohif/dicomweb-server:latest'
+        name: 'dicomweb-server'
 
 defaults: &defaults
   docker:
@@ -324,7 +333,7 @@ workflows:
       # E2E: PWA
       - cypress/run:
           name: 'E2E: PWA'
-          executor: cypress/browsers-chrome76
+          executor: with-chrome
           browser: chrome
           pre-steps:
             - run: |
