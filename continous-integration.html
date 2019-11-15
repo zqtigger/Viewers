@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Help · OHIF</title>
+        <title>Continuous Integration · OHIF</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -65,8 +65,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="browser-support.html" />
     
-    <link rel="prev" href="browser-support.html" />
+    
+    <link rel="prev" href="contributing/" />
     
 
     </head>
@@ -667,7 +669,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="4.2.1" data-path="continous-integration.html">
+        <li class="chapter active" data-level="4.2.1" data-path="continous-integration.html">
             
                 <a href="continous-integration.html">
             
@@ -698,7 +700,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="4.4" data-path="help.html">
+        <li class="chapter " data-level="4.4" data-path="help.html">
             
                 <a href="help.html">
             
@@ -743,7 +745,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Help</a>
+        <a href="." >Continuous Integration</a>
     </h1>
 </div>
 
@@ -758,34 +760,111 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="help"><a name="help" class="plugin-anchor" href="#help"><i class="fa fa-link" aria-hidden="true"></i></a>Help</h1>
-<p>We all need a little help sometimes. Don&apos;t let a few roadblocks stand in the way
-of you building something awesome.</p>
-<h2 id="community-support"><a name="community-support" class="plugin-anchor" href="#community-support"><i class="fa fa-link" aria-hidden="true"></i></a>Community Support</h2>
-<p>If you&apos;re a developer looking to contribute code, documentation, or discussion;
-we are more than happy to help provide clarification and answer questions via
-<a href="https://github.com/OHIF/Viewers/issues/" target="_blank">GitHub issues</a> or our <a href="https://groups.google.com/forum/#!forum/cornerstone-platform" target="_blank">community forum</a>. Regular
-contributors may also be invited to join our Slack Group to streamline
-discussion.</p>
-<p>For bug reports and feature requests (including incomplete or confusing
-documentation), <a href="https://github.com/OHIF/Viewers/issues/" target="_blank">GitHub issues</a> continue to be your best avenue of
-communication.</p>
-<p>Complex issues specific to your organization/situation are still okay to post,
-but they&apos;re less likely to receive a response. Unfortunately, we have limited
-resources and must be judicious with how we allocate them. If you find yourself
-in this situation and in need of assistance, it may be in your best interest to
-persue paid support.</p>
-<h2 id="commercial-support"><a name="commercial-support" class="plugin-anchor" href="#commercial-support"><i class="fa fa-link" aria-hidden="true"></i></a>Commercial Support</h2>
-<p>The Open Health Imaging Foundation does not offer commercial support, however,
-some community members do offer consulting services:</p>
+                                <h1 id="continous-integration-ci"><a name="continous-integration-ci" class="plugin-anchor" href="#continous-integration-ci"><i class="fa fa-link" aria-hidden="true"></i></a>Continous Integration (CI)</h1>
+<p>This repository uses <code>CircleCI</code> and <code>Netlify</code> for continous integration.</p>
+<h2 id="deploy-previews"><a name="deploy-previews" class="plugin-anchor" href="#deploy-previews"><i class="fa fa-link" aria-hidden="true"></i></a>Deploy Previews</h2>
+<p><a href="https://www.netlify.com/blog/2016/07/20/introducing-deploy-previews-in-netlify/" target="_blank">Netlify Deploy previews</a> are generated for every pull request.
+They allow pull request authors and reviewers to &quot;Preview&quot; the OHIF Viewer as if
+the changes had been merged.</p>
+<p>Deploy previews can be configured by modifying the <code>netlify.toml</code> file in the
+root of the repository. Some additional scripts/assets for netlify are included
+in the root <code>.netlify</code> directory.</p>
+<h2 id="workflows"><a name="workflows" class="plugin-anchor" href="#workflows"><i class="fa fa-link" aria-hidden="true"></i></a>Workflows</h2>
+<p><a href="https://circleci.com/docs/2.0/workflows/" target="_blank">CircleCI Workflows</a> are a set of rules for defining a
+collection of jobs and their run order. They are self-documenting and their
+configuration can be found in our CircleCI configuration file:
+<code>.circleci/config.yml</code>.</p>
+<h3 id="workflow-prchecks"><a name="workflow-prchecks" class="plugin-anchor" href="#workflow-prchecks"><i class="fa fa-link" aria-hidden="true"></i></a>Workflow: PR_CHECKS</h3>
+<p>The PR_CHECKS workflow (Pull Request Checks) runs our automated unit and
+end-to-end tests for every code check-in. These tests must all pass before code
+can be merged to our <code>master</code> branch.</p>
+<div style="text-align: center;">
+  <a href="assets/img/WORKFLOW_PR_CHECKS.png">
+    <img src="assets/img/WORKFLOW_PR_CHECKS.png" alt="workflow diagram" style="margin: 0 auto; max-width: 500px;">
+  </a>
+  <div><i>Workflow diagram for PR_CHECKS</i></div>
+</div>
+
+<h3 id="workflow-proptionaldockerpublish"><a name="workflow-proptionaldockerpublish" class="plugin-anchor" href="#workflow-proptionaldockerpublish"><i class="fa fa-link" aria-hidden="true"></i></a>Workflow: PR_OPTIONAL_DOCKER_PUBLISH</h3>
+<p>The PR_OPTIONAL_DOCKER_PUBLISH workflow allows for &quot;manual approval&quot; to publish
+the pull request as a tagged docker image. This is helpful when changes need to
+be tested with the Google Adapter before merging to <code>master</code>.</p>
+<div style="text-align: center;">
+  <a href="assets/img/WORKFLOW_PR_OPTIONAL_DOCKER_PUBLISH.png">
+    <img src="assets/img/WORKFLOW_PR_OPTIONAL_DOCKER_PUBLISH.png" alt="workflow diagram" style="margin: 0 auto; max-width: 500px;">
+  </a>
+  <div><i>Workflow diagram for PR_WORKFLOW_PR_OPTIONAL_DOCKER_PUBLISH</i></div>
+</div>
+
+<blockquote>
+<p>NOTE: This workflow will fail unless it&apos;s for a branch on our <code>upstream</code>
+repository. If you need this functionality, but the branch is from a fork,
+merge the changes to a short-lived <code>feature/</code> branch on <code>upstream</code></p>
+</blockquote>
+<h3 id="workflow-deploy"><a name="workflow-deploy" class="plugin-anchor" href="#workflow-deploy"><i class="fa fa-link" aria-hidden="true"></i></a>Workflow: DEPLOY</h3>
+<p>The DEPLOY workflow deploys the OHIF Viewer when changes are merged to master.
+It uses the Netlify CLI to deploy assets created as part of the repository&apos;s PWA
+Build process (<code>yarn run build</code>). The workflow allows for &quot;Manual Approval&quot; to
+promote the build to <code>STAGING</code> and <code>PRODUCTION</code> environments.</p>
+<div style="text-align: center;">
+  <a href="assets/img/WORKFLOW_DEPLOY.png">
+    <img src="assets/img/WORKFLOW_DEPLOY.png" alt="workflow diagram" style="margin: 0 auto; max-width: 500px;">
+  </a>
+  <div><i>Workflow diagram for WORKFLOW_DEPLOY</i></div>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Environment</th>
+<th>Description</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Development</td>
+<td>Always reflects latest changes on <code>master</code> branch.</td>
+<td><a href="https://ohif-dev.netlify.com" target="_blank">Netlify</a></td>
+</tr>
+<tr>
+<td>Staging</td>
+<td>For manual testing before promotion to prod. Keeps development workflow unblocked.</td>
+<td><a href="https://ohif-staging.netlify.com" target="_blank">Netlify</a></td>
+</tr>
+<tr>
+<td>Production</td>
+<td>Stable, tested, updated less frequently.</td>
+<td><a href="https://ohif-prod.netlify.com" target="_blank">Netlify</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="workflow-release"><a name="workflow-release" class="plugin-anchor" href="#workflow-release"><i class="fa fa-link" aria-hidden="true"></i></a>Workflow: RELEASE</h3>
+<p>The RELEASE workflow publishes our <code>npm</code> packages, updated documentation, and
+<code>docker</code> image when changes are merged to master. <code>Lerna</code> and &quot;Semantic Commit
+Syntax&quot; are used to independently version and publish the many packages in our
+monorepository. If a new version is cut/released, a Docker image is created.
+Documentation is generated with <code>gitbook</code> and pushed to our <code>gh-pages</code> branch.
+GitHub hosts the <code>gh-pages</code> branch with GitHub Pages.</p>
 <ul>
-<li>Rob Lewis (<a href="http://radicalimaging.com/" target="_blank">Radical Imaging</a>)</li>
+<li>Platform Packages: <a href="https://github.com/ohif/viewers/#platform" target="_blank">https://github.com/ohif/viewers/#platform</a></li>
+<li>Extension Packages: <a href="https://github.com/ohif/viewers/#extensions" target="_blank">https://github.com/ohif/viewers/#extensions</a></li>
+<li>Documentation: <a href="https://docs.ohif.org/" target="_blank">https://docs.ohif.org/</a></li>
 </ul>
-<p><strong>Please file a Pull Request if you wish to add your name or organization to
-this list.</strong></p>
+<div style="text-align: center;">
+  <a href="assets/img/WORKFLOW_RELEASE.png">
+    <img src="assets/img/WORKFLOW_RELEASE.png" alt="workflow diagram" style="margin: 0 auto; max-width: 500px;">
+  </a>
+  <div><i>Workflow diagram for WORKFLOW_RELEASE</i></div>
+</div>
+
+<h3 id="hotfix"><a name="hotfix" class="plugin-anchor" href="#hotfix"><i class="fa fa-link" aria-hidden="true"></i></a>HOTFIX</h3>
+<p><em>Not yet implemented</em></p>
 <!--
-  Links
-  -->
+  LINKS
+-->
+<!-- prettier-ignore-start -->
+<!-- prettier-ignore-end -->
 
                                 
                                 </section>
@@ -814,10 +893,14 @@ this list.</strong></p>
 
             
                 
-                <a href="browser-support.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Browser Support">
+                <a href="contributing/" class="navigation navigation-prev " aria-label="Previous page: Contributing">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="browser-support.html" class="navigation navigation-next " aria-label="Next page: Browser Support">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -826,7 +909,7 @@ this list.</strong></p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Help","level":"4.4","depth":1,"previous":{"title":"Browser Support","level":"4.3","depth":1,"path":"browser-support.md","ref":"browser-support.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"help.md","mtime":"2019-11-15T17:03:53.062Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-15T17:04:32.037Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Continuous Integration","level":"4.2.1","depth":2,"next":{"title":"Browser Support","level":"4.3","depth":1,"path":"browser-support.md","ref":"browser-support.md","articles":[]},"previous":{"title":"Contributing","level":"4.2","depth":1,"path":"contributing/index.md","ref":"contributing/index.md","articles":[{"title":"Continuous Integration","level":"4.2.1","depth":2,"path":"continous-integration.md","ref":"continous-integration.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"continous-integration.md","mtime":"2019-11-15T17:03:53.058Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-15T17:04:32.037Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
