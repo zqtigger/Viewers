@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Troubleshooting · OHIF</title>
+        <title>Services · OHIF</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -65,10 +65,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="scope-of-project.html" />
+    <link rel="next" href="ui/" />
     
     
-    <link rel="prev" href="translating.html" />
+    <link rel="prev" href="../advanced/extensions.html" />
     
 
     </head>
@@ -138,9 +138,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="getting-started.html">
+        <li class="chapter " data-level="1.3.1" data-path="../essentials/getting-started.html">
             
-                <a href="getting-started.html">
+                <a href="../essentials/getting-started.html">
             
                     
                     Getting Started
@@ -151,9 +151,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.2" data-path="installation.html">
+        <li class="chapter " data-level="1.3.2" data-path="../essentials/installation.html">
             
-                <a href="installation.html">
+                <a href="../essentials/installation.html">
             
                     
                     Installation
@@ -164,9 +164,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3" data-path="data-source.html">
+        <li class="chapter " data-level="1.3.3" data-path="../essentials/data-source.html">
             
-                <a href="data-source.html">
+                <a href="../essentials/data-source.html">
             
                     
                     Data Source
@@ -177,9 +177,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.4" data-path="configuration.html">
+        <li class="chapter " data-level="1.3.4" data-path="../essentials/configuration.html">
             
-                <a href="configuration.html">
+                <a href="../essentials/configuration.html">
             
                     
                     Configuration
@@ -190,9 +190,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.5" data-path="themeing.html">
+        <li class="chapter " data-level="1.3.5" data-path="../essentials/themeing.html">
             
-                <a href="themeing.html">
+                <a href="../essentials/themeing.html">
             
                     
                     Themeing
@@ -203,9 +203,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.6" data-path="translating.html">
+        <li class="chapter " data-level="1.3.6" data-path="../essentials/translating.html">
             
-                <a href="translating.html">
+                <a href="../essentials/translating.html">
             
                     
                     Translating
@@ -216,9 +216,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3.7" data-path="troubleshooting.html">
+        <li class="chapter " data-level="1.3.7" data-path="../essentials/troubleshooting.html">
             
-                <a href="troubleshooting.html">
+                <a href="../essentials/troubleshooting.html">
             
                     
                     Troubleshooting
@@ -234,9 +234,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="scope-of-project.html">
+        <li class="chapter " data-level="1.4" data-path="../essentials/scope-of-project.html">
             
-                <a href="scope-of-project.html">
+                <a href="../essentials/scope-of-project.html">
             
                     
                     Scope of Project
@@ -435,9 +435,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.4" data-path="../services/">
+        <li class="chapter active" data-level="2.4" data-path="./">
             
-                <a href="../services/">
+                <a href="./">
             
                     
                     Services
@@ -449,9 +449,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.4.1" data-path="../services/ui/">
+        <li class="chapter " data-level="2.4.1" data-path="ui/">
             
-                <a href="../services/ui/">
+                <a href="ui/">
             
                     
                     UI
@@ -790,7 +790,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Troubleshooting</a>
+        <a href=".." >Services</a>
     </h1>
 </div>
 
@@ -805,36 +805,102 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="troubleshooting"><a name="troubleshooting" class="plugin-anchor" href="#troubleshooting"><i class="fa fa-link" aria-hidden="true"></i></a>Troubleshooting</h1>
-<p>Common GitHub issues that are not easily remedied with cleaner code or
-documentation will be recorded here. Please feel free to make PRs to update this
-page.</p>
-<h2 id="common-problems"><a name="common-problems" class="plugin-anchor" href="#common-problems"><i class="fa fa-link" aria-hidden="true"></i></a>Common Problems</h2>
-<table>
-<thead>
-<tr>
-<th>Problem</th>
-<th>Most Common Reasons</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong> Can&apos;t retrieve Study List over DICOMWeb</strong></td>
-<td>1. QIDO root URL is incorrect<br> 2. DICOM Web is not enabled on PACS</td>
-</tr>
-<tr>
-<td><strong> Can&apos;t retrieve images</strong></td>
-<td>1. WADO Root URL is incorrect<br> 2. DICOM Web is not enabled on PACS<br> 3. HTTP Basic Authentication username and password are incorrect or not provided.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="debugging-steps"><a name="debugging-steps" class="plugin-anchor" href="#debugging-steps"><i class="fa fa-link" aria-hidden="true"></i></a>Debugging Steps</h2>
-<h3 id="cant-retrieve-study-list-over-dicomweb"><a name="cant-retrieve-study-list-over-dicomweb" class="plugin-anchor" href="#cant-retrieve-study-list-over-dicomweb"><i class="fa fa-link" aria-hidden="true"></i></a>Can&apos;t retrieve Study List over DICOMWeb</h3>
-<ol>
-<li>Check that you can query your PACS using an alternative DICOM Web client
-(e.g. cURL, or a Web Browser). If you cannot, then your PACS is configured
-incorrectly. Refer to the documentation of the image archive.</li>
-</ol>
+                                <h1 id="services"><a name="services" class="plugin-anchor" href="#services"><i class="fa fa-link" aria-hidden="true"></i></a>Services</h1>
+<ul>
+<li><a href="#/">Overview</a></li>
+<li><a href="#/">Anatomy</a></li>
+<li><a href="#/">UI Services</a></li>
+<li><a href="#/">Parting Words</a></li>
+</ul>
+<h2 id="overview"><a name="overview" class="plugin-anchor" href="#overview"><i class="fa fa-link" aria-hidden="true"></i></a>Overview</h2>
+<p>Services are a beefier version of <a href="#/">commands</a>. They provide a set of
+operations, often tied to some shared state, and are made available to
+extensions via the <code>ServicesManager</code>. Services are particularly well suited to
+address <a href="https://en.wikipedia.org/wiki/Cross-cutting_concern" target="_blank">cross-cutting concerns</a>.</p>
+<div style="text-align: center;">
+  <a href="../assets/img/services.png">
+    <img src="../assets/img/services.png" alt="UI Services Diagram" style="margin: 0 auto; max-width: 500px;">
+  </a>
+  <div><i>Diagram showing relationship between React Context and UI Service</i></div>
+</div>
+
+<p>Each service should be:</p>
+<ul>
+<li>self-contained</li>
+<li>able to fail and/or be removed without breaking the application</li>
+<li>completely interchangeable with another module implementing the same interface</li>
+</ul>
+<h3 id="an-example"><a name="an-example" class="plugin-anchor" href="#an-example"><i class="fa fa-link" aria-hidden="true"></i></a>An Example</h3>
+<p>The simplest service return a new object that has a <code>name</code> property, and
+methods/properties that give the service its functionality. The &quot;Factory
+Function&quot; that creates the service is provided with the implementation (this is
+slightly different for UI Services).</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> _speak = () =&gt; {
+  <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">&apos;Speak is not implemented&apos;</span>);
+};
+
+<span class="hljs-comment">/**
+ * Factory function to create `HelloWorldService`
+ *
+ * @param {object} implementation
+ * @param {function} implementation.speak - Speak&apos;s implementation
+ * @returns HelloWorldService
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createHelloWorldService</span>(<span class="hljs-params">{ speak }</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    name: <span class="hljs-string">&apos;HelloWorldService&apos;</span>,
+    speak: speak || _speak,
+  };
+}
+</code></pre>
+<p>A service, once created, can be registered with the <code>ServicesManager</code> to make it
+accessible to extensions. Similarly, the application code can access named
+services from the <code>ServicesManager</code>.</p>
+<pre><code class="lang-js"><span class="hljs-comment">// In the application</span>
+<span class="hljs-keyword">const</span> speak = () =&gt; {
+  <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">&apos;HELLO WORLD&apos;</span>);
+};
+<span class="hljs-keyword">const</span> HelloWorldService = createHelloWorldService({ speak });
+<span class="hljs-keyword">const</span> servicesManager = <span class="hljs-keyword">new</span> ServicesManager();
+
+servicesManager.registerService(HelloWorldService);
+
+<span class="hljs-comment">// In an extension</span>
+<span class="hljs-keyword">const</span> { HelloWorldService } = servicesManager.services;
+
+<span class="hljs-keyword">if</span> (HelloWorldService) {
+  HelloWorldService.speak();
+}
+</code></pre>
+<h3 id="a-work-in-progress"><a name="a-work-in-progress" class="plugin-anchor" href="#a-work-in-progress"><i class="fa fa-link" aria-hidden="true"></i></a>A work in progress</h3>
+<p>Today, we only have maintained UI Services. You can read more about them below.</p>
+<p>In practice, services are live, but the patterns and guidance for them may shift
+slightly as we begin to develop real-world features that utilize them.</p>
+<h2 id="ui-services"><a name="ui-services" class="plugin-anchor" href="#ui-services"><i class="fa fa-link" aria-hidden="true"></i></a>UI Services</h2>
+<p>A typical web application will have components and state for common UI like
+modals, notifications, dialogs, etc. A UI service makes it possible to leverage
+these components from an extension.</p>
+<p>We maintain the following UI Services:</p>
+<ul>
+<li><a href="ui/ui-dialog-service.md">UIDialogService</a></li>
+<li><a href="ui/ui-modal-service.md">UIModalService</a></li>
+<li><a href="ui/ui-notification-service.md">UINotificationService</a></li>
+</ul>
+<p>You can read more about a specific service by selecting it in the above list,
+and more about <a href="ui/">UI services in general: here</a></p>
+<h2 id="parting-words"><a name="parting-words" class="plugin-anchor" href="#parting-words"><i class="fa fa-link" aria-hidden="true"></i></a>Parting Words</h2>
+<p>Services are &quot;concern-specific&quot; code modules that can be consumed across layers.
+We try to minimize the coupling they introduce by authoring services that are
+able to fail or be removed. Related patterns that may reduce coupling include:</p>
+<ul>
+<li>Pub/Sub</li>
+<li>Commands</li>
+</ul>
+<!--
+  LINKS
+  -->
+<!-- prettier-ignore-start -->
+<!-- prettier-ignore-end -->
 
                                 
                                 </section>
@@ -863,12 +929,12 @@ incorrectly. Refer to the documentation of the image archive.</li>
 
             
                 
-                <a href="translating.html" class="navigation navigation-prev " aria-label="Previous page: Translating">
+                <a href="../advanced/extensions.html#ohif-maintained-extensions" class="navigation navigation-prev " aria-label="Previous page: OHIF Maintained">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="scope-of-project.html" class="navigation navigation-next " aria-label="Next page: Scope of Project">
+                <a href="ui/" class="navigation navigation-next " aria-label="Next page: UI">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -879,7 +945,7 @@ incorrectly. Refer to the documentation of the image archive.</li>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Troubleshooting","level":"1.3.7","depth":2,"next":{"title":"Scope of Project","level":"1.4","depth":1,"path":"essentials/scope-of-project.md","ref":"essentials/scope-of-project.md","articles":[]},"previous":{"title":"Translating","level":"1.3.6","depth":2,"path":"essentials/translating.md","ref":"essentials/translating.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"essentials/troubleshooting.md","mtime":"2019-12-05T20:48:07.827Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-05T20:48:39.375Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Services","level":"2.4","depth":1,"next":{"title":"UI","level":"2.4.1","depth":2,"path":"services/ui/index.md","ref":"services/ui/index.md","articles":[]},"previous":{"title":"OHIF Maintained","level":"2.3.4","depth":2,"anchor":"#ohif-maintained-extensions","path":"advanced/extensions.md","ref":"advanced/extensions.md#ohif-maintained-extensions","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"services/index.md","mtime":"2019-12-05T20:48:07.827Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-05T20:48:39.375Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
