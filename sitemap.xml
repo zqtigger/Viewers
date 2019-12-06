@@ -14,7 +14,6 @@
 <url> <loc>https://docs.ohif.org/advanced/architecture.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://docs.ohif.org/advanced/extensions.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://docs.ohif.org/services/</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://docs.ohif.org/services/ui/</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://docs.ohif.org/advanced/custom-tools.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://docs.ohif.org/deployment/</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://docs.ohif.org/deployment/recipes/embedded-viewer.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>

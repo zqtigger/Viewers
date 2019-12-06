@@ -65,7 +65,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="ui/" />
+    <link rel="next" href="ui/index.md" />
     
     
     <link rel="prev" href="../advanced/extensions.html" />
@@ -449,9 +449,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.4.1" data-path="ui/">
+        <li class="chapter " data-level="2.4.1" data-path="ui/index.md">
             
-                <a href="ui/">
+                <span>
             
                     
                     UI
@@ -805,90 +805,49 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="services"><a name="services" class="plugin-anchor" href="#services"><i class="fa fa-link" aria-hidden="true"></i></a>Services</h1>
+                                <h1 id="services-overview"><a name="services-overview" class="plugin-anchor" href="#services-overview"><i class="fa fa-link" aria-hidden="true"></i></a>Services Overview</h1>
 <ul>
-<li><a href="#/">Overview</a></li>
-<li><a href="#/">Anatomy</a></li>
-<li><a href="#/">UI Services</a></li>
-<li><a href="#/">Parting Words</a></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#kinds-of-services">Kinds of Services</a><ul>
+<li><a href="#services--default-">Services (default)</a></li>
+<li><a href="#ui-services">UI Services</a></li>
+</ul>
+</li>
+<li><a href="#related-patterns">Related Patterns</a></li>
 </ul>
 <h2 id="overview"><a name="overview" class="plugin-anchor" href="#overview"><i class="fa fa-link" aria-hidden="true"></i></a>Overview</h2>
 <p>Services are a beefier version of <a href="#/">commands</a>. They provide a set of
 operations, often tied to some shared state, and are made available to
 extensions via the <code>ServicesManager</code>. Services are particularly well suited to
 address <a href="https://en.wikipedia.org/wiki/Cross-cutting_concern" target="_blank">cross-cutting concerns</a>.</p>
-<div style="text-align: center;">
-  <a href="../assets/img/services.png">
-    <img src="../assets/img/services.png" alt="UI Services Diagram" style="margin: 0 auto; max-width: 500px;">
-  </a>
-  <div><i>Diagram showing relationship between React Context and UI Service</i></div>
-</div>
-
 <p>Each service should be:</p>
 <ul>
 <li>self-contained</li>
 <li>able to fail and/or be removed without breaking the application</li>
 <li>completely interchangeable with another module implementing the same interface</li>
 </ul>
-<h3 id="an-example"><a name="an-example" class="plugin-anchor" href="#an-example"><i class="fa fa-link" aria-hidden="true"></i></a>An Example</h3>
-<p>The simplest service return a new object that has a <code>name</code> property, and
-methods/properties that give the service its functionality. The &quot;Factory
-Function&quot; that creates the service is provided with the implementation (this is
-slightly different for UI Services).</p>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> _speak = () =&gt; {
-  <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">&apos;Speak is not implemented&apos;</span>);
-};
-
-<span class="hljs-comment">/**
- * Factory function to create `HelloWorldService`
- *
- * @param {object} implementation
- * @param {function} implementation.speak - Speak&apos;s implementation
- * @returns HelloWorldService
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createHelloWorldService</span>(<span class="hljs-params">{ speak }</span>) </span>{
-  <span class="hljs-keyword">return</span> {
-    name: <span class="hljs-string">&apos;HelloWorldService&apos;</span>,
-    speak: speak || _speak,
-  };
-}
-</code></pre>
-<p>A service, once created, can be registered with the <code>ServicesManager</code> to make it
-accessible to extensions. Similarly, the application code can access named
-services from the <code>ServicesManager</code>.</p>
-<pre><code class="lang-js"><span class="hljs-comment">// In the application</span>
-<span class="hljs-keyword">const</span> speak = () =&gt; {
-  <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">&apos;HELLO WORLD&apos;</span>);
-};
-<span class="hljs-keyword">const</span> HelloWorldService = createHelloWorldService({ speak });
-<span class="hljs-keyword">const</span> servicesManager = <span class="hljs-keyword">new</span> ServicesManager();
-
-servicesManager.registerService(HelloWorldService);
-
-<span class="hljs-comment">// In an extension</span>
-<span class="hljs-keyword">const</span> { HelloWorldService } = servicesManager.services;
-
-<span class="hljs-keyword">if</span> (HelloWorldService) {
-  HelloWorldService.speak();
-}
-</code></pre>
-<h3 id="a-work-in-progress"><a name="a-work-in-progress" class="plugin-anchor" href="#a-work-in-progress"><i class="fa fa-link" aria-hidden="true"></i></a>A work in progress</h3>
-<p>Today, we only have maintained UI Services. You can read more about them below.</p>
-<p>In practice, services are live, but the patterns and guidance for them may shift
-slightly as we begin to develop real-world features that utilize them.</p>
-<h2 id="ui-services"><a name="ui-services" class="plugin-anchor" href="#ui-services"><i class="fa fa-link" aria-hidden="true"></i></a>UI Services</h2>
+<h2 id="kinds-of-services"><a name="kinds-of-services" class="plugin-anchor" href="#kinds-of-services"><i class="fa fa-link" aria-hidden="true"></i></a>Kinds of Services</h2>
+<p>Depending on the kind of service, we follow slightly different conventions. For
+example, a UI service often receives its implementation from a React Context
+Provider. You can read more about the different kinds of services and what makes
+them different below:</p>
+<h3 id="services-default"><a name="services-default" class="plugin-anchor" href="#services-default"><i class="fa fa-link" aria-hidden="true"></i></a>Services (default)</h3>
+<p>Services are a work in progress. As we are still in the progress of creating a
+non-ui maintained service, this usage may change.</p>
+<p><a href="services.md">You can read more about default services: here</a></p>
+<h3 id="ui-services"><a name="ui-services" class="plugin-anchor" href="#ui-services"><i class="fa fa-link" aria-hidden="true"></i></a>UI Services</h3>
 <p>A typical web application will have components and state for common UI like
 modals, notifications, dialogs, etc. A UI service makes it possible to leverage
 these components from an extension.</p>
 <p>We maintain the following UI Services:</p>
 <ul>
-<li><a href="ui/ui-dialog-service.md">UIDialogService</a></li>
-<li><a href="ui/ui-modal-service.md">UIModalService</a></li>
-<li><a href="ui/ui-notification-service.md">UINotificationService</a></li>
+<li><a href="ui-dialog-service.md">UIDialogService</a></li>
+<li><a href="ui-modal-service.md">UIModalService</a></li>
+<li><a href="ui-notification-service.md">UINotificationService</a></li>
 </ul>
 <p>You can read more about a specific service by selecting it in the above list,
-and more about <a href="ui/">UI services in general: here</a></p>
-<h2 id="parting-words"><a name="parting-words" class="plugin-anchor" href="#parting-words"><i class="fa fa-link" aria-hidden="true"></i></a>Parting Words</h2>
+and more about <a href="ui.md">UI services in general: here</a></p>
+<h2 id="related-patterns"><a name="related-patterns" class="plugin-anchor" href="#related-patterns"><i class="fa fa-link" aria-hidden="true"></i></a>Related Patterns</h2>
 <p>Services are &quot;concern-specific&quot; code modules that can be consumed across layers.
 We try to minimize the coupling they introduce by authoring services that are
 able to fail or be removed. Related patterns that may reduce coupling include:</p>
@@ -934,7 +893,7 @@ able to fail or be removed. Related patterns that may reduce coupling include:</
                 </a>
                 
                 
-                <a href="ui/" class="navigation navigation-next " aria-label="Next page: UI">
+                <a href="ui/index.md" class="navigation navigation-next " aria-label="Next page: UI">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -945,7 +904,7 @@ able to fail or be removed. Related patterns that may reduce coupling include:</
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Services","level":"2.4","depth":1,"next":{"title":"UI","level":"2.4.1","depth":2,"path":"services/ui/index.md","ref":"services/ui/index.md","articles":[]},"previous":{"title":"OHIF Maintained","level":"2.3.4","depth":2,"anchor":"#ohif-maintained-extensions","path":"advanced/extensions.md","ref":"advanced/extensions.md#ohif-maintained-extensions","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"services/index.md","mtime":"2019-12-06T05:14:11.022Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-06T05:14:54.107Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Services","level":"2.4","depth":1,"next":{"title":"UI","level":"2.4.1","depth":2,"path":"services/ui/index.md","ref":"services/ui/index.md","articles":[]},"previous":{"title":"OHIF Maintained","level":"2.3.4","depth":2,"anchor":"#ohif-maintained-extensions","path":"advanced/extensions.md","ref":"advanced/extensions.md#ohif-maintained-extensions","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"services/index.md","mtime":"2019-12-06T14:19:12.939Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-06T14:19:48.968Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
