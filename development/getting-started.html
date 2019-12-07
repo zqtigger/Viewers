@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Installation · OHIF</title>
+        <title>Getting Started · OHIF</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -65,7 +65,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="data-source.html" />
+    <link rel="next" href="contributing.html" />
     
     
 
@@ -122,12 +122,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="../getting-started.html">
+        <li class="chapter " data-level="1.3" data-path="../quick-start.md">
             
-                <a href="../getting-started.html">
+                <span>
             
                     
-                    Getting Started
+                    Quick Start
             
                 </a>
             
@@ -140,7 +140,7 @@
                 <span>
             
                     
-                    Essentials
+                    Development
             
                 </span>
             
@@ -149,12 +149,12 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.4.1" data-path="installation.html">
+        <li class="chapter active" data-level="1.4.1" data-path="getting-started.html">
             
-                <a href="installation.html">
+                <a href="getting-started.html">
             
                     
-                    Installation
+                    Getting Started
             
                 </a>
             
@@ -162,12 +162,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="data-source.html">
+        <li class="chapter " data-level="1.4.2" data-path="contributing.html">
             
-                <a href="data-source.html">
+                <a href="contributing.html">
             
                     
-                    Data Source
+                    Contributing
             
                 </a>
             
@@ -175,12 +175,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.3" data-path="configuration.html">
+        <li class="chapter " data-level="1.4.3" data-path="continous-integration.html">
             
-                <a href="configuration.html">
+                <a href="continous-integration.html">
             
                     
-                    Configuration
+                    Continuous Integration
             
                 </a>
             
@@ -193,12 +193,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="../contributing/">
+        <li class="chapter " data-level="1.5" data-path="../configuring/index.md">
             
-                <a href="../contributing/">
+                <span>
             
                     
-                    Contributing
+                    Configuring
             
                 </a>
             
@@ -207,12 +207,25 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.5.1" data-path="../continous-integration.html">
+        <li class="chapter " data-level="1.5.1" data-path="../configuring/data-source.html">
             
-                <a href="../continous-integration.html">
+                <a href="../configuring/data-source.html">
             
                     
-                    Continuous Integration
+                    Data Source
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../essentials/configuration.md">
+            
+                <span>
+            
+                    
+                    Configuration
             
                 </a>
             
@@ -793,9 +806,9 @@
         
         
     
-        <li class="chapter " data-level="4.1" data-path="../frequently-asked-questions.html">
+        <li class="chapter " data-level="4.1" data-path="../faq/">
             
-                <a href="../frequently-asked-questions.html">
+                <a href="../faq/">
             
                     
                     FAQ
@@ -804,11 +817,12 @@
             
 
             
-        </li>
+            <ul class="articles">
+                
     
-        <li class="chapter " data-level="4.2" data-path="../scope-of-project.html">
+        <li class="chapter " data-level="4.1.1" data-path="../faq/scope-of-project.html">
             
-                <a href="../scope-of-project.html">
+                <a href="../faq/scope-of-project.html">
             
                     
                     Scope of Project
@@ -819,9 +833,9 @@
             
         </li>
     
-        <li class="chapter " data-level="4.3" data-path="../browser-support.html">
+        <li class="chapter " data-level="4.1.2" data-path="../faq/browser-support.html">
             
-                <a href="../browser-support.html">
+                <a href="../faq/browser-support.html">
             
                     
                     Browser Support
@@ -832,7 +846,25 @@
             
         </li>
     
-        <li class="chapter " data-level="4.4" data-path="../help.html">
+        <li class="chapter " data-level="4.1.3" data-path="../faq/pwa-vs-packaged.html">
+            
+                <a href="../faq/pwa-vs-packaged.html">
+            
+                    
+                    PWA vs Packaged
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../help.html">
             
                 <a href="../help.html">
             
@@ -877,7 +909,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Installation</a>
+        <a href=".." >Getting Started</a>
     </h1>
 </div>
 
@@ -892,42 +924,91 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="installation"><a name="installation" class="plugin-anchor" href="#installation"><i class="fa fa-link" aria-hidden="true"></i></a>Installation</h1>
-<p>It&apos;s important to know that the OHIF Viewer project provides two different build
-processes:</p>
-<pre><code class="lang-bash"><span class="hljs-comment"># Static Asset output: For deploying PWAs</span>
+                                <h1 id="getting-started"><a name="getting-started" class="plugin-anchor" href="#getting-started"><i class="fa fa-link" aria-hidden="true"></i></a>Getting Started</h1>
+<h2 id="setup"><a name="setup" class="plugin-anchor" href="#setup"><i class="fa fa-link" aria-hidden="true"></i></a>Setup</h2>
+<h3 id="fork--clone"><a name="fork--clone" class="plugin-anchor" href="#fork--clone"><i class="fa fa-link" aria-hidden="true"></i></a>Fork &amp; Clone</h3>
+<p>If you intend to contribute back changes, or if you would like to pull updates
+we make to the OHIF Viewer, then follow these steps:</p>
+<ul>
+<li><a href="https://help.github.com/en/articles/fork-a-repo" target="_blank">Fork</a> the <a href="https://github.com/OHIF/Viewers" target="_blank">OHIF/Viewers</a> repository</li>
+<li><a href="https://help.github.com/en/articles/fork-a-repo#step-2-create-a-local-clone-of-your-fork" target="_blank">Create a local clone</a> of your fork<ul>
+<li><code>git clone https://github.com/YOUR-USERNAME/Viewers</code></li>
+</ul>
+</li>
+<li>Add OHIF/Viewers as a <a href="https://help.github.com/en/articles/fork-a-repo#step-3-configure-git-to-sync-your-fork-with-the-original-spoon-knife-repository" target="_blank">remote repository</a> labled <code>upstream</code><ul>
+<li>Navigate to the cloned project&apos;s directory</li>
+<li><code>git remote add upstream https://github.com/OHIF/Viewers.git</code></li>
+</ul>
+</li>
+</ul>
+<p>With this setup, you can now <a href="https://help.github.com/en/articles/syncing-a-fork" target="_blank">sync your fork</a> to keep it
+up-to-date with the upstream (original) repository. This is called a &quot;Triangular
+Workflow&quot; and is common for Open Source projects. The GitHub blog has a <a href="https://github.blog/2015-07-29-git-2-5-including-multiple-worktrees-and-triangular-workflows/#improved-support-for-triangular-workflows" target="_blank">good
+graphic that illustrates this setup</a>.</p>
+<h3 id="private"><a name="private" class="plugin-anchor" href="#private"><i class="fa fa-link" aria-hidden="true"></i></a>Private</h3>
+<p>Alternatively, if you intend to use the OHIF Viewer as a starting point, and you
+aren&apos;t as concerned with syncing updates, then follow these steps:</p>
+<ol>
+<li>Navigate to the <a href="https://github.com/OHIF/Viewers" target="_blank">OHIF/Viewers</a> repository</li>
+<li>Click <code>Clone or download</code>, and then <code>Download ZIP</code></li>
+<li>Use the contents of the <code>.zip</code> file as a starting point for your viewer</li>
+</ol>
+<blockquote>
+<p>NOTE: It is still possible to sync changes using this approach. However,
+submitting pull requests for fixes and features are best done with the
+separate, forked repository setup described in &quot;Fork &amp; Clone&quot;</p>
+</blockquote>
+<h2 id="developing"><a name="developing" class="plugin-anchor" href="#developing"><i class="fa fa-link" aria-hidden="true"></i></a>Developing</h2>
+<h3 id="requirements"><a name="requirements" class="plugin-anchor" href="#requirements"><i class="fa fa-link" aria-hidden="true"></i></a>Requirements</h3>
+<ul>
+<li><a href="https://nodejs.org/en/" target="_blank">Node.js &amp; NPM</a></li>
+<li><a href="https://yarnpkg.com/en/" target="_blank">Yarn</a></li>
+<li>Yarn workspaces should be enabled:<ul>
+<li><code>yarn config set workspaces-experimental true</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="kick-the-tires"><a name="kick-the-tires" class="plugin-anchor" href="#kick-the-tires"><i class="fa fa-link" aria-hidden="true"></i></a>Kick the tires</h3>
+<p>Navigate to the root of the project&apos;s directory in your terminal and run the
+following commands:</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># Restore dependencies</span>
+yarn install
+
+<span class="hljs-comment"># Start local development server</span>
+yarn run dev
+</code></pre>
+<p>You should see the following output:</p>
+<pre><code class="lang-bash">@ohif/viewer: i &#xFF62;wds&#xFF63;: Project is running at http://localhost:3000/
+@ohif/viewer: i &#xFF62;wds&#xFF63;: webpack output is served from /
+@ohif/viewer: i &#xFF62;wds&#xFF63;: Content not from webpack is served from D:\code\ohif\Viewers\platform\viewer
+@ohif/viewer: i &#xFF62;wds&#xFF63;: 404s will fallback to /index.html
+
+<span class="hljs-comment"># And a list of all generated files</span>
+</code></pre>
+<h3 id="&#x1F389;-celebrate-&#x1F389;"><a name="&#x1F389;-celebrate-&#x1F389;" class="plugin-anchor" href="#&#x1F389;-celebrate-&#x1F389;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x1F389; Celebrate &#x1F389;</h3>
+<center>
+  <img alt="development server hosted app" src="../assets/img/loading-study.gif">
+  <i>Our app, hosted by the development server</i>
+</center>
+
+<h3 id="building-for-production"><a name="building-for-production" class="plugin-anchor" href="#building-for-production"><i class="fa fa-link" aria-hidden="true"></i></a>Building for Production</h3>
+<blockquote>
+<p>More comprehensive guides for building and publishing can be found in our
+<a href="deployment/index.md">deployment docs</a></p>
+</blockquote>
+<pre><code class="lang-bash"><span class="hljs-comment"># Build static assets to host a PWA</span>
 yarn run build
 
-<span class="hljs-comment"># Single `.js` script, for embedding viewer into existing apps</span>
+<span class="hljs-comment"># Build packaged output (script-tag use)</span>
 yarn run build:package
 </code></pre>
-<h2 id="progressive-web-application-pwa"><a name="progressive-web-application-pwa" class="plugin-anchor" href="#progressive-web-application-pwa"><i class="fa fa-link" aria-hidden="true"></i></a>Progressive Web Application (PWA)</h2>
-<blockquote>
-<p><a href="https://developers.google.com/web/progressive-web-apps/" target="_blank">Progressive Web Apps</a> are a new breed of web applications that meet the
-<a href="https://developers.google.com/web/progressive-web-apps/checklist" target="_blank">following requirements</a>. Notably, targeting a PWA allows us
-provide a reliable, fast, and engaging experience across different devices and
-network conditions.</p>
-</blockquote>
-<p>The OHIF Viewer is maintained as a <a href="https://github.com/OHIF/Viewers/issues/768" target="_blank">monorepo</a>. We use WebPack to build
-the many small static assets that comprise our application. Also generated is an
-<code>index.html</code> that will serve as an entry point for loading configuration and the
-application, as well as a <code>service-worker</code> that can intelligently cache files so
-that subsequent requests are from the local file system instead of over the
-network.</p>
-<p>You can read more about this particular strategy in our
-<a href="../deployment/recipes/build-for-production.html">Build for Production Deployment Guide</a></p>
-<h2 id="commonjs-bundle-packaged-script"><a name="commonjs-bundle-packaged-script" class="plugin-anchor" href="#commonjs-bundle-packaged-script"><i class="fa fa-link" aria-hidden="true"></i></a>Commonjs Bundle (Packaged Script)</h2>
-<p>The <a href="https://www.npmjs.com/package/@ohif/viewer" target="_blank">@ohif/viewer</a> package is built with WebPack to provide a React
-component that can be dropped into a larger application. The <code>OHIFViewer</code>
-component is the entire viewer, configurable via React <code>props</code>. This is useful
-for including the OHIF Viewer in a larger web application, as the entire
-application can be provided via a <code>&lt;script&gt;</code> tag with no build process required.</p>
-<p>The bundle is not as performant or as optimized as the PWA build. It includes
-fonts, styles, and the core extensions. If you find yourself facing performance
-issues, you may wish to tweak what&apos;s included in this bundle or switch to the
-PWA build.</p>
-<p>You can read more about this particular strategy in our
-<a href="../deployment/recipes/embedded-viewer.html">Embedded Viewer Deployment Guide</a></p>
+<h2 id="troubleshooting"><a name="troubleshooting" class="plugin-anchor" href="#troubleshooting"><i class="fa fa-link" aria-hidden="true"></i></a>Troubleshooting</h2>
+<ul>
+<li>If you receive a <em>&quot;No Studies Found&quot;</em> message and do not see your studies, try
+changing the Study Date filters to a wider range.</li>
+<li>If you see a &apos;Loading&apos; message which never resolves, check your browser
+JavaScript console inside the Developer Tools to identify any errors.</li>
+</ul>
 <!--
   Links
   -->
@@ -962,7 +1043,7 @@ PWA build.</p>
             
                 
                 
-                <a href="data-source.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Data Source">
+                <a href="contributing.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Contributing">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -973,7 +1054,7 @@ PWA build.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Installation","level":"1.4.1","depth":2,"next":{"title":"Data Source","level":"1.4.2","depth":2,"path":"essentials/data-source.md","ref":"essentials/data-source.md","articles":[]},"previous":{"title":"Essentials","level":"1.4","depth":1,"ref":"","articles":[{"title":"Installation","level":"1.4.1","depth":2,"path":"essentials/installation.md","ref":"essentials/installation.md","articles":[]},{"title":"Data Source","level":"1.4.2","depth":2,"path":"essentials/data-source.md","ref":"essentials/data-source.md","articles":[]},{"title":"Configuration","level":"1.4.3","depth":2,"path":"essentials/configuration.md","ref":"essentials/configuration.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"essentials/installation.md","mtime":"2019-12-07T03:56:29.927Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-07T03:56:59.987Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Getting Started","level":"1.4.1","depth":2,"next":{"title":"Contributing","level":"1.4.2","depth":2,"path":"development/contributing.md","ref":"development/contributing.md","articles":[]},"previous":{"title":"Development","level":"1.4","depth":1,"ref":"","articles":[{"title":"Getting Started","level":"1.4.1","depth":2,"path":"development/getting-started.md","ref":"development/getting-started.md","articles":[]},{"title":"Contributing","level":"1.4.2","depth":2,"path":"development/contributing.md","ref":"development/contributing.md","articles":[]},{"title":"Continuous Integration","level":"1.4.3","depth":2,"path":"development/continous-integration.md","ref":"development/continous-integration.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"development/getting-started.md","mtime":"2019-12-07T05:12:35.605Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-07T05:13:07.511Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

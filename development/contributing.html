@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Configuration · OHIF</title>
+        <title>Contributing · OHIF</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -65,10 +65,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../contributing/" />
+    <link rel="next" href="continous-integration.html" />
     
     
-    <link rel="prev" href="data-source.html" />
+    <link rel="prev" href="getting-started.html" />
     
 
     </head>
@@ -124,12 +124,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="../getting-started.html">
+        <li class="chapter " data-level="1.3" data-path="../quick-start.md">
             
-                <a href="../getting-started.html">
+                <span>
             
                     
-                    Getting Started
+                    Quick Start
             
                 </a>
             
@@ -142,7 +142,7 @@
                 <span>
             
                     
-                    Essentials
+                    Development
             
                 </span>
             
@@ -151,12 +151,12 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="installation.html">
+        <li class="chapter " data-level="1.4.1" data-path="getting-started.html">
             
-                <a href="installation.html">
+                <a href="getting-started.html">
             
                     
-                    Installation
+                    Getting Started
             
                 </a>
             
@@ -164,12 +164,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="data-source.html">
+        <li class="chapter active" data-level="1.4.2" data-path="contributing.html">
             
-                <a href="data-source.html">
+                <a href="contributing.html">
             
                     
-                    Data Source
+                    Contributing
             
                 </a>
             
@@ -177,12 +177,12 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.3" data-path="configuration.html">
+        <li class="chapter " data-level="1.4.3" data-path="continous-integration.html">
             
-                <a href="configuration.html">
+                <a href="continous-integration.html">
             
                     
-                    Configuration
+                    Continuous Integration
             
                 </a>
             
@@ -195,12 +195,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="../contributing/">
+        <li class="chapter " data-level="1.5" data-path="../configuring/index.md">
             
-                <a href="../contributing/">
+                <span>
             
                     
-                    Contributing
+                    Configuring
             
                 </a>
             
@@ -209,12 +209,25 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.5.1" data-path="../continous-integration.html">
+        <li class="chapter " data-level="1.5.1" data-path="../configuring/data-source.html">
             
-                <a href="../continous-integration.html">
+                <a href="../configuring/data-source.html">
             
                     
-                    Continuous Integration
+                    Data Source
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../essentials/configuration.md">
+            
+                <span>
+            
+                    
+                    Configuration
             
                 </a>
             
@@ -795,9 +808,9 @@
         
         
     
-        <li class="chapter " data-level="4.1" data-path="../frequently-asked-questions.html">
+        <li class="chapter " data-level="4.1" data-path="../faq/">
             
-                <a href="../frequently-asked-questions.html">
+                <a href="../faq/">
             
                     
                     FAQ
@@ -806,11 +819,12 @@
             
 
             
-        </li>
+            <ul class="articles">
+                
     
-        <li class="chapter " data-level="4.2" data-path="../scope-of-project.html">
+        <li class="chapter " data-level="4.1.1" data-path="../faq/scope-of-project.html">
             
-                <a href="../scope-of-project.html">
+                <a href="../faq/scope-of-project.html">
             
                     
                     Scope of Project
@@ -821,9 +835,9 @@
             
         </li>
     
-        <li class="chapter " data-level="4.3" data-path="../browser-support.html">
+        <li class="chapter " data-level="4.1.2" data-path="../faq/browser-support.html">
             
-                <a href="../browser-support.html">
+                <a href="../faq/browser-support.html">
             
                     
                     Browser Support
@@ -834,7 +848,25 @@
             
         </li>
     
-        <li class="chapter " data-level="4.4" data-path="../help.html">
+        <li class="chapter " data-level="4.1.3" data-path="../faq/pwa-vs-packaged.html">
+            
+                <a href="../faq/pwa-vs-packaged.html">
+            
+                    
+                    PWA vs Packaged
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../help.html">
             
                 <a href="../help.html">
             
@@ -879,7 +911,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Configuration</a>
+        <a href=".." >Contributing</a>
     </h1>
 </div>
 
@@ -894,112 +926,125 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="configuration"><a name="configuration" class="plugin-anchor" href="#configuration"><i class="fa fa-link" aria-hidden="true"></i></a>Configuration</h1>
-<blockquote>
-<p>This step assumes you have an imaging archive. If you need assistance setting
-one up, check out the <a href="data-source.html"><code>Data Source</code> Guide</a> or a deployment
-recipe that contains an open source Image Archive</p>
-</blockquote>
+                                <h1 id="contributing"><a name="contributing" class="plugin-anchor" href="#contributing"><i class="fa fa-link" aria-hidden="true"></i></a>Contributing</h1>
+<h2 id="how-can-i-help"><a name="how-can-i-help" class="plugin-anchor" href="#how-can-i-help"><i class="fa fa-link" aria-hidden="true"></i></a>How can I help?</h2>
+<p>Fork the repository, make your change and submit a pull request. If you would
+like to discuss the changes you intend to make to clarify where or how they
+should be implemented, please don&apos;t hesitate to create a new issue. At a
+minimum, you may want to read the following documentation:</p>
 <ul>
-<li><a href="#configuration-files">Configuration Files</a></li>
+<li><a href="getting-started.html">Getting Started</a></li>
+<li><a href="../architecture/">Architecture</a></li>
 </ul>
-<h2 id="overview"><a name="overview" class="plugin-anchor" href="#overview"><i class="fa fa-link" aria-hidden="true"></i></a>Overview</h2>
-<h3 id="configuration-files"><a name="configuration-files" class="plugin-anchor" href="#configuration-files"><i class="fa fa-link" aria-hidden="true"></i></a>Configuration Files</h3>
-<p>The configuration for our viewer is in the <code>&lt;root&gt;platform/viewer/public/config</code>
-directory. Our build process knows which configuration file to use based on the
-<code>APP_CONFIG</code> environment variable. By default, its value is
-<a href="https://github.com/OHIF/Viewers/blob/master/platform/viewer/public/config/default.js" target="_blank"><code>config/default.js</code></a>. The majority of the viewer&apos;s features,
-and registered extension&apos;s features, are configured using this file.</p>
-<p><strong>Embedded Use Note:</strong></p>
-<p>Alternatively, when using the <code>commonjs</code> bundle for embedded use cases, these
-same values are what you&apos;ll pass to <code>installViewer</code> method:</p>
-<p><code>OHIFStandaloneViewer.installViewer(window.config)</code></p>
-<h3 id="environment-variables"><a name="environment-variables" class="plugin-anchor" href="#environment-variables"><i class="fa fa-link" aria-hidden="true"></i></a>Environment Variables</h3>
-<p>We use environment variables at build and dev time to change the Viewer&apos;s
-behavior. We can update the <code>HTML_TEMPLATE</code> to easily change which extensions
-are registered, and specify a different <code>APP_CONFIG</code> to connect to an
-alternative data source (or even specify different default hotkeys).</p>
-<table>
-<thead>
-<tr>
-<th>Environment Variable</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>HTML_TEMPLATE</code></td>
-<td>Which <a href="https://github.com/OHIF/Viewers/tree/master/platform/viewer/public/html-templates" target="_blank">HTML template</a> to use as our web app&apos;s entry point. Specific to PWA builds.</td>
-<td><code>index.html</code></td>
-</tr>
-<tr>
-<td><code>PUBLIC_URL</code></td>
-<td>The route relative to the host that the app will be served from. Specific to PWA builds.</td>
-<td><code>/</code></td>
-</tr>
-<tr>
-<td><code>APP_CONFIG</code></td>
-<td>Which [configuration file][config-file] to copy to output as <code>app-config.js</code></td>
-<td><code>config/default.js</code></td>
-</tr>
-<tr>
-<td><code>PROXY_TARGET</code></td>
-<td>When developing, proxy requests that match this pattern to <code>PROXY_DOMAIN</code></td>
-<td><code>undefined</code></td>
-</tr>
-<tr>
-<td><code>PROXY_DOMAIN</code></td>
-<td>When developing, proxy requests from <code>PROXY_TARGET</code> to <code>PROXY_DOMAIN</code></td>
-<td><code>undefined</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="registering-extensions"><a name="registering-extensions" class="plugin-anchor" href="#registering-extensions"><i class="fa fa-link" aria-hidden="true"></i></a>Registering Extensions</h3>
-<blockquote>
-<p>:warn: Instructions coming soon</p>
-</blockquote>
-<h2 id="how-do-i-configure-my-project"><a name="how-do-i-configure-my-project" class="plugin-anchor" href="#how-do-i-configure-my-project"><i class="fa fa-link" aria-hidden="true"></i></a>How do I configure my project?</h2>
-<p>The simplest way is to update the existing default config:</p>
-<p><em>/platform/viewer/public/config/default.js</em></p>
-<pre><code class="lang-js"><span class="hljs-built_in">window</span>.config = {
-  routerBasename: <span class="hljs-string">&apos;/&apos;</span>,
-  servers: {
-    dicomWeb: [
-      {
-        name: <span class="hljs-string">&apos;DCM4CHEE&apos;</span>,
-        wadoUriRoot: <span class="hljs-string">&apos;https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/wado&apos;</span>,
-        qidoRoot: <span class="hljs-string">&apos;https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs&apos;</span>,
-        wadoRoot: <span class="hljs-string">&apos;https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs&apos;</span>,
-        qidoSupportsIncludeField: <span class="hljs-literal">true</span>,
-        imageRendering: <span class="hljs-string">&apos;wadors&apos;</span>,
-        thumbnailRendering: <span class="hljs-string">&apos;wadors&apos;</span>,
-      },
-    ],
-  },
-};
+<p>Pull requests that are:</p>
+<ul>
+<li>Small</li>
+<li><a href="testing.md">Well tested</a></li>
+<li>Decoupled</li>
+</ul>
+<p>Are much more likely to get reviewed and merged in a timely manner.</p>
+<h2 id="when-changes-impact-multiple-repositories"><a name="when-changes-impact-multiple-repositories" class="plugin-anchor" href="#when-changes-impact-multiple-repositories"><i class="fa fa-link" aria-hidden="true"></i></a>When changes impact multiple repositories</h2>
+<p>While this can be tricky, we&apos;ve tried to reduce how often this situation crops
+up this with our <a href="https://github.com/OHIF/Viewers/issues/768" target="_blank">recent switch to a monorepo</a>. Our maintained
+extensions, ui components, internationalization library, and business logic can
+all be developed by simply running <code>yarn run dev</code> from the repository root.</p>
+<p>Testing the viewer with locally developed, unpublished package changes from a
+package outside of the monorepo is most common with extension development. Let&apos;s
+demonstrate how to accomplish this with two commonly forked extension
+dependencies:</p>
+<h3 id="cornerstone-tools"><a name="cornerstone-tools" class="plugin-anchor" href="#cornerstone-tools"><i class="fa fa-link" aria-hidden="true"></i></a><code>cornerstone-tools</code></h3>
+<p>On your local file system:</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># code/my-projects/</span>
+.
+&#x251C;&#x2500;&#x2500; cornerstonejs/cornerstone-tools
+&#x2514;&#x2500;&#x2500; ohif/viewers
 </code></pre>
-<p>You can also create a new config file and specify its path relative to the build
-output&apos;s root by setting the <code>APP_CONFIG</code> environment variable. You can set the
-value of this environment variable a few different ways:</p>
 <ul>
-<li>~<a href="https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#adding-temporary-environment-variables-in-your-shell" target="_blank">Add a temporary environment variable in your shell</a>~<ul>
-<li>Previous <code>react-scripts</code> functionality that we need to duplicate with
-<code>dotenv-webpack</code></li>
+<li>Open a terminal/shell</li>
+<li>Navigate to <code>cornerstonejs/cornerstone-tools</code><ul>
+<li><code>npm install</code></li>
+<li><a href="https://yarnpkg.com/en/docs/cli/link" target="_blank"><code>yarn link</code></a></li>
+<li><code>npm run dev</code></li>
 </ul>
 </li>
-<li>~<a href="https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#adding-development-environment-variables-in-env" target="_blank">Add environment specific variables in <code>.env</code> file(s)</a>~<ul>
-<li>Previous <code>react-scripts</code> functionality that we need to duplicate with
-<code>dotenv-webpack</code></li>
+<li>Open a new terminal/shell</li>
+<li>Navigate to <code>ohif/viewers</code>.<ul>
+<li><code>yarn install</code></li>
+<li><a href="https://yarnpkg.com/en/docs/cli/link" target="_blank"><code>yarn link cornerstone-tools</code></a></li>
+<li><code>yarn run dev</code></li>
 </ul>
 </li>
-<li>Using the <code>cross-env</code> package in an npm script:<ul>
-<li><code>&quot;build&quot;: &quot;cross-env APP_CONFIG=config/my-config.js react-scripts build&quot;</code></li>
+</ul>
+<p>As you make changed to <code>cornerstone-tools</code>, and it&apos;s output is rebuilt, you
+should see the following behavior:</p>
+<div style="text-align: center;">
+  <a href="../assets/img/cornerstone-tools-link.gif">
+    <img src="../assets/img/cornerstone-tools-link.gif" alt="Example of linked cornerstone-tools package" style="margin: 0 auto; max-width: 500px;">
+  </a>
+  <div><i>example of linked cornerstone-tools package</i></div>
+</div>
+
+<p>If you wish to stop using your local package, run the following commands in the
+<code>ohif/viewers</code> repository root:</p>
+<ul>
+<li><code>yarn unlink cornerstone-tools</code></li>
+<li><code>yarn install --force</code></li>
+</ul>
+<h3 id="react-vtkjs-viewport"><a name="react-vtkjs-viewport" class="plugin-anchor" href="#react-vtkjs-viewport"><i class="fa fa-link" aria-hidden="true"></i></a><code>react-vtkjs-viewport</code></h3>
+<p>On your local file system:</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># code/my-projects/</span>
+.
+&#x251C;&#x2500;&#x2500; ohif/react-vtkjs-viewport
+&#x2514;&#x2500;&#x2500; ohif/viewers
+</code></pre>
+<ul>
+<li>Open a terminal/shell</li>
+<li>Navigate to <code>ohif/react-vtkjs-viewport</code><ul>
+<li><code>yarn install</code></li>
+<li><a href="https://yarnpkg.com/en/docs/cli/link" target="_blank"><code>yarn link</code></a></li>
+<li><code>yarn run start</code></li>
+</ul>
+</li>
+<li>Open a new terminal/shell</li>
+<li>Navigate to <code>ohif/viewers</code>.<ul>
+<li><code>yarn install</code></li>
+<li><a href="https://yarnpkg.com/en/docs/cli/link" target="_blank"><code>yarn link react-vtkjs-viewport</code></a></li>
+<li><code>yarn run dev</code></li>
 </ul>
 </li>
 </ul>
-<p>After updating the configuration, <code>yarn run build</code> to generate updated build
-output.</p>
+<h4 id="other-linkage-notes"><a name="other-linkage-notes" class="plugin-anchor" href="#other-linkage-notes"><i class="fa fa-link" aria-hidden="true"></i></a>Other linkage notes</h4>
+<p>We&apos;re still working out some of the kinks with local package development as
+there are a lot of factors that can influence the behavior of our development
+server and bundler. If you encounter issues not addressed here, please don&apos;t
+hesitate to reach out on GitHub.</p>
+<h2 id="any-guidance-on-submitting-changes"><a name="any-guidance-on-submitting-changes" class="plugin-anchor" href="#any-guidance-on-submitting-changes"><i class="fa fa-link" aria-hidden="true"></i></a>Any guidance on submitting changes?</h2>
+<p>While we do appreciate code contributions, triaging and integrating contributed
+code changes can be very time consuming. Please consider the following tips when
+working on your pull requests:</p>
+<ul>
+<li>Functionality is appropriate for the repository. Consider creating a GitHub
+issue to discuss your suggested changes.</li>
+<li>The scope of the pull request is not too large. Please consider separate pull
+requests for each feature as big pull requests are very time consuming to
+understand.</li>
+</ul>
+<p>We will provide feedback on your pull requests as soon as possible. Following
+the tips above will help ensure your changes are reviewed.</p>
+<h2 id="testing-contribution-pull-requests"><a name="testing-contribution-pull-requests" class="plugin-anchor" href="#testing-contribution-pull-requests"><i class="fa fa-link" aria-hidden="true"></i></a>Testing contribution pull requests</h2>
+<p>OHIF uses <a href="netlify.com">netlify</a> so that pull requests are autogenerated and
+available for testing.</p>
+<p>For example, <a href="https://deploy-preview-237--ohif.netlify.com/viewer/?url=https://s3.eu-central-1.amazonaws.com/ohif-viewer/sampleDICOM.json" target="_blank">this url</a> allows you to test <a href="https://github.com/OHIF/Viewers/pull/237" target="_blank">pull request 237, the
+request that created this FAQ entry,</a> using data pulled from Amazon S3.</p>
+<p>Replacing the number 237 in the link below with your pull request number should
+let you test it as well and you can use this link for discussions on github
+without requiring reviewers to download and build your branch.</p>
+<pre><code class="lang-bash">https://deploy-preview-237--ohif.netlify.com/viewer/?url=https://s3.eu-central-1.amazonaws.com/ohif-viewer/sampleDICOM.json
+</code></pre>
+<p>If you have made a documentation change, a link like this will let you preview
+the gitbook generated by the pull request:</p>
+<pre><code class="lang-bash">https://deploy-preview-237--ohif.netlify.com/contributing.html
+</code></pre>
 <!--
   Links
   -->
@@ -1033,12 +1078,12 @@ output.</p>
 
             
                 
-                <a href="data-source.html" class="navigation navigation-prev " aria-label="Previous page: Data Source">
+                <a href="getting-started.html" class="navigation navigation-prev " aria-label="Previous page: Getting Started">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../contributing/" class="navigation navigation-next " aria-label="Next page: Contributing">
+                <a href="continous-integration.html" class="navigation navigation-next " aria-label="Next page: Continuous Integration">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1049,7 +1094,7 @@ output.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Configuration","level":"1.4.3","depth":2,"next":{"title":"Contributing","level":"1.5","depth":1,"path":"contributing/index.md","ref":"contributing/index.md","articles":[{"title":"Continuous Integration","level":"1.5.1","depth":2,"path":"continous-integration.md","ref":"continous-integration.md","articles":[]}]},"previous":{"title":"Data Source","level":"1.4.2","depth":2,"path":"essentials/data-source.md","ref":"essentials/data-source.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"essentials/configuration.md","mtime":"2019-12-07T03:56:29.927Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-07T03:56:59.987Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Contributing","level":"1.4.2","depth":2,"next":{"title":"Continuous Integration","level":"1.4.3","depth":2,"path":"development/continous-integration.md","ref":"development/continous-integration.md","articles":[]},"previous":{"title":"Getting Started","level":"1.4.1","depth":2,"path":"development/getting-started.md","ref":"development/getting-started.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"development/contributing.md","mtime":"2019-12-07T05:12:35.605Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-07T05:13:07.511Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
