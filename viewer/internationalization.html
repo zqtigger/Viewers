@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Translating · OHIF</title>
+        <title>Internationalization · OHIF</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -65,10 +65,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../contributing/" />
+    <link rel="next" href="../extensions/" />
     
     
-    <link rel="prev" href="configuration.html" />
+    <link rel="prev" href="themeing.html" />
     
 
     </head>
@@ -151,9 +151,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="installation.html">
+        <li class="chapter " data-level="1.4.1" data-path="../essentials/installation.html">
             
-                <a href="installation.html">
+                <a href="../essentials/installation.html">
             
                     
                     Installation
@@ -164,9 +164,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="data-source.html">
+        <li class="chapter " data-level="1.4.2" data-path="../essentials/data-source.html">
             
-                <a href="data-source.html">
+                <a href="../essentials/data-source.html">
             
                     
                     Data Source
@@ -177,25 +177,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.3" data-path="configuration.html">
+        <li class="chapter " data-level="1.4.3" data-path="../essentials/configuration.html">
             
-                <a href="configuration.html">
+                <a href="../essentials/configuration.html">
             
                     
                     Configuration
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter active" data-level="1.4.4" data-path="translating.html">
-            
-                <a href="translating.html">
-            
-                    
-                    Translating
             
                 </a>
             
@@ -260,9 +247,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="../viewer/">
+        <li class="chapter " data-level="2.2" data-path="./">
             
-                <a href="../viewer/">
+                <a href="./">
             
                     
                     Viewer
@@ -274,9 +261,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.2.1" data-path="../viewer/configuration.html">
+        <li class="chapter " data-level="2.2.1" data-path="configuration.html">
             
-                <a href="../viewer/configuration.html">
+                <a href="configuration.html">
             
                     
                     Configuration
@@ -287,12 +274,25 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2.2" data-path="../viewer/themeing.html">
+        <li class="chapter " data-level="2.2.2" data-path="themeing.html">
             
-                <a href="../viewer/themeing.html">
+                <a href="themeing.html">
             
                     
                     Themeing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.2.3" data-path="internationalization.html">
+            
+                <a href="internationalization.html">
+            
+                    
+                    Internationalization
             
                 </a>
             
@@ -879,7 +879,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Translating</a>
+        <a href=".." >Internationalization</a>
     </h1>
 </div>
 
@@ -894,7 +894,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="translating"><a name="translating" class="plugin-anchor" href="#translating"><i class="fa fa-link" aria-hidden="true"></i></a>Translating</h1>
+                                <h1 id="internationalization"><a name="internationalization" class="plugin-anchor" href="#internationalization"><i class="fa fa-link" aria-hidden="true"></i></a>Internationalization</h1>
 <p>OHIF supports internationalization using <a href="https://www.i18next.com/" target="_blank">i18next</a>
 through the npm package <a href="https://www.npmjs.com/package/@ohif/i18n" target="_blank">@ohif/i18n</a>,
 where is the main instance of i18n containing several languages and tools.</p>
@@ -909,14 +909,14 @@ where is the main instance of i18n containing several languages and tools.</p>
   </div>
 </div>
 
-<h3 id="installing"><a name="installing" class="plugin-anchor" href="#installing"><i class="fa fa-link" aria-hidden="true"></i></a>Installing</h3>
+<h2 id="installing"><a name="installing" class="plugin-anchor" href="#installing"><i class="fa fa-link" aria-hidden="true"></i></a>Installing</h2>
 <pre><code class="lang-bash">yarn add @ohif/i18n
 
 <span class="hljs-comment"># OR</span>
 
 npm install --save @ohif/i18n
 </code></pre>
-<h3 id="how-it-works"><a name="how-it-works" class="plugin-anchor" href="#how-it-works"><i class="fa fa-link" aria-hidden="true"></i></a>How it works</h3>
+<h2 id="how-it-works"><a name="how-it-works" class="plugin-anchor" href="#how-it-works"><i class="fa fa-link" aria-hidden="true"></i></a>How it works</h2>
 <p>After installing <code>@ohif/i18n</code> npm package, the translation function
 <a href="https://www.i18next.com/overview/api#t" target="_blank">t</a> can be used <a href="#with-react">with</a> or
 <a href="#without-react">without</a> React.</p>
@@ -935,11 +935,11 @@ getting translations using all the power of i18next.</p>
 <code>my translated text</code>, it will be replaced automatically by the
 <a href="https://www.i18next.com/overview/api#t" target="_blank">t</a> function.</p>
 <hr>
-<h4 id="with-react"><a name="with-react" class="plugin-anchor" href="#with-react"><i class="fa fa-link" aria-hidden="true"></i></a>With React</h4>
+<h3 id="with-react"><a name="with-react" class="plugin-anchor" href="#with-react"><i class="fa fa-link" aria-hidden="true"></i></a>With React</h3>
 <p>This section will introduce you to <a href="https://react.i18next.com/" target="_blank">react-i18next</a>
 basics and show how to implement the <a href="https://www.i18next.com/overview/api#t" target="_blank">t</a>
 function easily.</p>
-<h5 id="using-hocs"><a name="using-hocs" class="plugin-anchor" href="#using-hocs"><i class="fa fa-link" aria-hidden="true"></i></a>Using HOCs</h5>
+<h4 id="using-hocs"><a name="using-hocs" class="plugin-anchor" href="#using-hocs"><i class="fa fa-link" aria-hidden="true"></i></a>Using HOCs</h4>
 <p>In most cases we used
 <a href="https://react.i18next.com/latest/withtranslation-hoc" target="_blank">High Order Components</a> to
 share the <code>t</code> function among OHIF&apos;s components.</p>
@@ -958,11 +958,11 @@ share the <code>t</code> function among OHIF&apos;s components.</p>
 <a href="#using-outside-of-ohif-viewer">I18nextProvider</a> section, <code>withTranslation</code>
 HOC doesnt works without a I18nextProvider</p>
 </blockquote>
-<h5 id="using-hooks"><a name="using-hooks" class="plugin-anchor" href="#using-hooks"><i class="fa fa-link" aria-hidden="true"></i></a>Using Hooks</h5>
+<h4 id="using-hooks"><a name="using-hooks" class="plugin-anchor" href="#using-hooks"><i class="fa fa-link" aria-hidden="true"></i></a>Using Hooks</h4>
 <p>Also, it&apos;s possible to get the <code>t</code> tool using
 <a href="https://react.i18next.com/latest/usetranslation-hook" target="_blank">React Hooks</a>, but it
 requires at least React &gt; 16.8 &#x1F609;</p>
-<h4 id="using-outside-of-ohif-viewer"><a name="using-outside-of-ohif-viewer" class="plugin-anchor" href="#using-outside-of-ohif-viewer"><i class="fa fa-link" aria-hidden="true"></i></a>Using outside of OHIF viewer</h4>
+<h3 id="using-outside-of-ohif-viewer"><a name="using-outside-of-ohif-viewer" class="plugin-anchor" href="#using-outside-of-ohif-viewer"><i class="fa fa-link" aria-hidden="true"></i></a>Using outside of OHIF viewer</h3>
 <p>OHIF Viewer already sets a main
 <a href="https://react.i18next.com/latest/i18nextprovider" target="_blank">I18nextProvider</a> connected to
 the shared i18n instance from <code>@ohif/i18n</code>, all extensions inside OHIF Viewer
@@ -982,7 +982,7 @@ I18nextProvider this way:</p>
 <code>@ohif/i18n</code> should be available following the basic <a href="#with-react">With React</a>
 usage.</p>
 <hr>
-<h4 id="without-react"><a name="without-react" class="plugin-anchor" href="#without-react"><i class="fa fa-link" aria-hidden="true"></i></a>Without React</h4>
+<h3 id="without-react"><a name="without-react" class="plugin-anchor" href="#without-react"><i class="fa fa-link" aria-hidden="true"></i></a>Without React</h3>
 <p>When needed, you can also use available translations <em>without React</em>.</p>
 <p>E.g.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">import</span> { T } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@ohif/i18n&apos;</span>;
@@ -1151,12 +1151,12 @@ called <code>REACT_APP_I18N_DEBUG</code>.</p>
 
             
                 
-                <a href="configuration.html" class="navigation navigation-prev " aria-label="Previous page: Configuration">
+                <a href="themeing.html" class="navigation navigation-prev " aria-label="Previous page: Themeing">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../contributing/" class="navigation navigation-next " aria-label="Next page: Contributing">
+                <a href="../extensions/" class="navigation navigation-next " aria-label="Next page: Extensions">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1167,7 +1167,7 @@ called <code>REACT_APP_I18N_DEBUG</code>.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Translating","level":"1.4.4","depth":2,"next":{"title":"Contributing","level":"1.5","depth":1,"path":"contributing/index.md","ref":"contributing/index.md","articles":[{"title":"Continuous Integration","level":"1.5.1","depth":2,"path":"continous-integration.md","ref":"continous-integration.md","articles":[]}]},"previous":{"title":"Configuration","level":"1.4.3","depth":2,"path":"essentials/configuration.md","ref":"essentials/configuration.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"essentials/translating.md","mtime":"2019-12-07T03:50:50.930Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-07T03:51:18.382Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Internationalization","level":"2.2.3","depth":2,"next":{"title":"Extensions","level":"2.3","depth":1,"path":"extensions/index.md","ref":"extensions/index.md","articles":[{"title":"Registering","level":"2.3.1","depth":2,"anchor":"#registering-an-extension","path":"extensions/index.md","ref":"extensions/index.md#registering-an-extension","articles":[]},{"title":"Lifecycle Hooks","level":"2.3.2","depth":2,"anchor":"#lifecycle-hooks","path":"extensions/index.md","ref":"extensions/index.md#lifecycle-hooks","articles":[{"title":"preRegistration","level":"2.3.2.1","depth":3,"path":"extensions/lifecycle/pre-registration.md","ref":"extensions/lifecycle/pre-registration.md","articles":[]}]},{"title":"Modules","level":"2.3.3","depth":2,"anchor":"#modules","path":"extensions/index.md","ref":"extensions/index.md#modules","articles":[{"title":"Commands","level":"2.3.3.1","depth":3,"path":"extensions/modules/commands.md","ref":"extensions/modules/commands.md","articles":[]},{"title":"Panel","level":"2.3.3.2","depth":3,"path":"extensions/modules/panel.md","ref":"extensions/modules/panel.md","articles":[]},{"title":"SOP Class Handler","level":"2.3.3.3","depth":3,"path":"extensions/modules/sop-class-handler.md","ref":"extensions/modules/sop-class-handler.md","articles":[]},{"title":"Toolbar","level":"2.3.3.4","depth":3,"path":"extensions/modules/toolbar.md","ref":"extensions/modules/toolbar.md","articles":[]},{"title":"Viewport","level":"2.3.3.5","depth":3,"path":"extensions/modules/viewport.md","ref":"extensions/modules/viewport.md","articles":[]}]},{"title":"Contexts","level":"2.3.4","depth":2,"anchor":"#contexts","path":"extension/index.md","ref":"extension/index.md#contexts","articles":[]},{"title":"OHIF Maintained","level":"2.3.5","depth":2,"anchor":"#maintained-extensions","path":"extension/index.md","ref":"extension/index.md#maintained-extensions","articles":[]}]},"previous":{"title":"Themeing","level":"2.2.2","depth":2,"path":"viewer/themeing.md","ref":"viewer/themeing.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"viewer/internationalization.md","mtime":"2019-12-07T03:56:29.927Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-07T03:56:59.987Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
