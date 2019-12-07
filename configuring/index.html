@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Viewer · OHIF</title>
+        <title>Configuring · OHIF</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -65,10 +65,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="configuration.html" />
+    <link rel="next" href="data-source.html" />
     
     
-    <link rel="prev" href="../architecture/" />
+    <link rel="prev" href="../development/continous-integration.html" />
     
 
     </head>
@@ -195,9 +195,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="../configuring/">
+        <li class="chapter active" data-level="1.5" data-path="./">
             
-                <a href="../configuring/">
+                <a href="./">
             
                     
                     Configuring
@@ -209,9 +209,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.5.1" data-path="../configuring/data-source.html">
+        <li class="chapter " data-level="1.5.1" data-path="data-source.html">
             
-                <a href="../configuring/data-source.html">
+                <a href="data-source.html">
             
                     
                     Data Source
@@ -247,9 +247,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.2" data-path="./">
+        <li class="chapter " data-level="2.2" data-path="../viewer/">
             
-                <a href="./">
+                <a href="../viewer/">
             
                     
                     Viewer
@@ -261,9 +261,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.2.1" data-path="configuration.html">
+        <li class="chapter " data-level="2.2.1" data-path="../viewer/configuration.html">
             
-                <a href="configuration.html">
+                <a href="../viewer/configuration.html">
             
                     
                     Configuration
@@ -274,9 +274,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2.2" data-path="themeing.html">
+        <li class="chapter " data-level="2.2.2" data-path="../viewer/themeing.html">
             
-                <a href="themeing.html">
+                <a href="../viewer/themeing.html">
             
                     
                     Themeing
@@ -287,9 +287,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2.3" data-path="internationalization.html">
+        <li class="chapter " data-level="2.2.3" data-path="../viewer/internationalization.html">
             
-                <a href="internationalization.html">
+                <a href="../viewer/internationalization.html">
             
                     
                     Internationalization
@@ -898,7 +898,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Viewer</a>
+        <a href=".." >Configuring</a>
     </h1>
 </div>
 
@@ -913,7 +913,99 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="viewer"><a name="viewer" class="plugin-anchor" href="#viewer"><i class="fa fa-link" aria-hidden="true"></i></a>Viewer</h1>
+                                <h1 id="configuration"><a name="configuration" class="plugin-anchor" href="#configuration"><i class="fa fa-link" aria-hidden="true"></i></a>Configuration</h1>
+<blockquote>
+<p>This step assumes you have an imaging archive. If you need assistance setting
+one up, check out the <a href="data-source.html"><code>Data Source</code> Guide</a> or a deployment
+recipe that contains an open Image Archive</p>
+</blockquote>
+<ul>
+<li><a href="#overview">Overview</a><ul>
+<li><a href="#configuration-files">Configuration Files</a></li>
+<li><a href="#environment-variables">Environment Variables</a></li>
+</ul>
+</li>
+<li><a href="#how-do-i-configure-my-project">How do I configure my project?</a></li>
+</ul>
+<h2 id="overview"><a name="overview" class="plugin-anchor" href="#overview"><i class="fa fa-link" aria-hidden="true"></i></a>Overview</h2>
+<h3 id="configuration-files"><a name="configuration-files" class="plugin-anchor" href="#configuration-files"><i class="fa fa-link" aria-hidden="true"></i></a>Configuration Files</h3>
+<p>The configuration for our viewer is in the <code>&lt;root&gt;platform/viewer/public/config</code>
+directory. Our build process knows which configuration file to use based on the
+<code>APP_CONFIG</code> environment variable. By default, its value is
+<a href="https://github.com/OHIF/Viewers/blob/master/platform/viewer/public/config/default.js" target="_blank"><code>config/default.js</code></a>. The majority of the viewer&apos;s features,
+and registered extension&apos;s features, are configured using this file.</p>
+<p><strong>Embedded Use Note:</strong></p>
+<p>Alternatively, when using the <code>umd</code> bundle for embedded use cases, these same
+values are what you&apos;ll pass to <code>installViewer</code> method:</p>
+<p><code>OHIFStandaloneViewer.installViewer(window.config)</code></p>
+<h3 id="environment-variables"><a name="environment-variables" class="plugin-anchor" href="#environment-variables"><i class="fa fa-link" aria-hidden="true"></i></a>Environment Variables</h3>
+<p>We use environment variables at build and dev time to change the Viewer&apos;s
+behavior. We can update the <code>HTML_TEMPLATE</code> to easily change which extensions
+are registered, and specify a different <code>APP_CONFIG</code> to connect to an
+alternative data source (or even specify different default hotkeys).</p>
+<table>
+<thead>
+<tr>
+<th>Environment Variable</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HTML_TEMPLATE</code></td>
+<td>Which <a href="https://github.com/OHIF/Viewers/tree/master/platform/viewer/public/html-templates" target="_blank">HTML template</a> to use as our web app&apos;s entry point. Specific to PWA builds.</td>
+<td><code>index.html</code></td>
+</tr>
+<tr>
+<td><code>PUBLIC_URL</code></td>
+<td>The route relative to the host that the app will be served from. Specific to PWA builds.</td>
+<td><code>/</code></td>
+</tr>
+<tr>
+<td><code>APP_CONFIG</code></td>
+<td>Which [configuration file][config-file] to copy to output as <code>app-config.js</code></td>
+<td><code>config/default.js</code></td>
+</tr>
+<tr>
+<td><code>PROXY_TARGET</code></td>
+<td>When developing, proxy requests that match this pattern to <code>PROXY_DOMAIN</code></td>
+<td><code>undefined</code></td>
+</tr>
+<tr>
+<td><code>PROXY_DOMAIN</code></td>
+<td>When developing, proxy requests from <code>PROXY_TARGET</code> to <code>PROXY_DOMAIN</code></td>
+<td><code>undefined</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-do-i-configure-my-project"><a name="how-do-i-configure-my-project" class="plugin-anchor" href="#how-do-i-configure-my-project"><i class="fa fa-link" aria-hidden="true"></i></a>How do I configure my project?</h2>
+<p>The simplest way is to update the existing default config:</p>
+<p><em>/platform/viewer/public/config/default.js</em></p>
+<pre><code class="lang-js"><span class="hljs-built_in">window</span>.config = {
+  routerBasename: <span class="hljs-string">&apos;/&apos;</span>,
+  servers: {
+    dicomWeb: [
+      {
+        name: <span class="hljs-string">&apos;DCM4CHEE&apos;</span>,
+        wadoUriRoot: <span class="hljs-string">&apos;https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/wado&apos;</span>,
+        qidoRoot: <span class="hljs-string">&apos;https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs&apos;</span>,
+        wadoRoot: <span class="hljs-string">&apos;https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs&apos;</span>,
+        qidoSupportsIncludeField: <span class="hljs-literal">true</span>,
+        imageRendering: <span class="hljs-string">&apos;wadors&apos;</span>,
+        thumbnailRendering: <span class="hljs-string">&apos;wadors&apos;</span>,
+      },
+    ],
+  },
+};
+</code></pre>
+<p>After updating the configuration, <code>yarn run build</code> to generate updated build
+output.</p>
+<!--
+  Links
+  -->
+<!-- prettier-ignore-start -->
+<!-- prettier-ignore-end -->
 
                                 
                                 </section>
@@ -942,12 +1034,12 @@
 
             
                 
-                <a href="../architecture/" class="navigation navigation-prev " aria-label="Previous page: Architecture">
+                <a href="../development/continous-integration.html" class="navigation navigation-prev " aria-label="Previous page: Continuous Integration">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="configuration.html" class="navigation navigation-next " aria-label="Next page: Configuration">
+                <a href="data-source.html" class="navigation navigation-next " aria-label="Next page: Data Source">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -958,7 +1050,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Viewer","level":"2.2","depth":1,"next":{"title":"Configuration","level":"2.2.1","depth":2,"path":"viewer/configuration.md","ref":"viewer/configuration.md","articles":[]},"previous":{"title":"Architecture","level":"2.1","depth":1,"path":"architecture/index.md","ref":"architecture/index.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"viewer/index.md","mtime":"2019-12-07T05:26:14.155Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-07T05:26:54.568Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Configuring","level":"1.5","depth":1,"next":{"title":"Data Source","level":"1.5.1","depth":2,"path":"configuring/data-source.md","ref":"configuring/data-source.md","articles":[]},"previous":{"title":"Continuous Integration","level":"1.4.3","depth":2,"path":"development/continous-integration.md","ref":"development/continous-integration.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"configuring/index.md","mtime":"2019-12-07T05:26:14.151Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-07T05:26:54.568Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
