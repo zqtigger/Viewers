@@ -7,7 +7,6 @@
 <url> <loc>https://docs.ohif.org/essentials/data-source.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://docs.ohif.org/essentials/configuration.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://docs.ohif.org/essentials/translating.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://docs.ohif.org/essentials/troubleshooting.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://docs.ohif.org/contributing/</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://docs.ohif.org/continous-integration.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://docs.ohif.org/architecture/</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
