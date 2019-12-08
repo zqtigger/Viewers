@@ -929,7 +929,9 @@
 </ul>
 <h2 id="overview"><a name="overview" class="plugin-anchor" href="#overview"><i class="fa fa-link" aria-hidden="true"></i></a>Overview</h2>
 <p>We use extensions to help us isolate and package groups of related features.
-Extensions provide functionality, ui components, and new behaviors.</p>
+Extensions provide functionality, ui components, and new behaviors. Ideally,
+they&apos;re built in a way that allows them to extend entirely different
+implementations of the <code>@ohif/viewer</code> project.</p>
 <div style="text-align: center;">
   <a href="../assets/img/extensions-diagram.png">
     <img src="../assets/img/extensions-diagram.png" alt="Extensions Diagram" style="margin: 0 auto; max-width: 500px;">
@@ -958,9 +960,8 @@ friendly way</li>
 </ul>
 <h2 id="concepts"><a name="concepts" class="plugin-anchor" href="#concepts"><i class="fa fa-link" aria-hidden="true"></i></a>Concepts</h2>
 <h3 id="extension-skeleton"><a name="extension-skeleton" class="plugin-anchor" href="#extension-skeleton"><i class="fa fa-link" aria-hidden="true"></i></a>Extension Skeleton</h3>
-<p>An extension is a plain JavaScript object has an <code>id</code> property, and one or more
-&quot;getModuleFunctions&quot; and/or lifecycle hooks. You can read more about
-<a href="#lifecycle-hooks">lifecycle hooks</a> and <a href="#modules">modules</a> further down.</p>
+<p>An extension is a plain JavaScript object that has an <code>id</code> property, and one or
+more <a href="#modules">modules</a> and/or <a href="#lifecycle-hooks">lifecycle hooks</a>.</p>
 <pre><code class="lang-js"><span class="hljs-comment">// prettier-ignore</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
   <span class="hljs-comment">/**
@@ -984,6 +985,10 @@ friendly way</li>
 <p>You can leverage one or both strategies. Which one(s) you choose depend on your
 application&apos;s requirements. Each <a href="#modules">module</a> defined by the extension
 becomes available to the core application via the <code>ExtensionManager</code>.</p>
+<h4 id="registering-at-runtime"><a name="registering-at-runtime" class="plugin-anchor" href="#registering-at-runtime"><i class="fa fa-link" aria-hidden="true"></i></a>Registering at Runtime</h4>
+<p>The <code>@ohif/viewer</code> uses a <a href="#">configuration file</a> at startup. The schema for
+that file includes an <code>Extensions</code> key that supports an array of extensions to
+register.</p>
 <pre><code class="lang-js"><span class="hljs-comment">// prettier-ignore</span>
 <span class="hljs-keyword">const</span> config = {
   extensions: [
@@ -995,16 +1000,12 @@ becomes available to the core application via the <code>ExtensionManager</code>.
   ];
 }
 </code></pre>
-<h4 id="registering-at-runtime"><a name="registering-at-runtime" class="plugin-anchor" href="#registering-at-runtime"><i class="fa fa-link" aria-hidden="true"></i></a>Registering at Runtime</h4>
-<p>The <code>@ohif/viewer</code> uses a <a href="#">configuration file</a> at startup. The schema for
-that file includes an <code>Extensions</code> key that supports an array of extensions to
-register.</p>
 <h4 id="registering-at-build-time"><a name="registering-at-build-time" class="plugin-anchor" href="#registering-at-build-time"><i class="fa fa-link" aria-hidden="true"></i></a>Registering at Build Time</h4>
 <p>The <code>@ohif/viewer</code> works best when built as a &quot;Progressive Web Application&quot;
 (PWA). If you know the extensions your application will need, you can specify
 them at &quot;build time&quot; to leverage advantages afforded to us by modern tooling:</p>
 <ul>
-<li>Code Splitting</li>
+<li>Code Splitting (dynamic imports)</li>
 <li>Tree Shaking</li>
 <li>Dependency deduplication</li>
 </ul>
@@ -1064,6 +1065,8 @@ differently.</p>
 </tr>
 </tbody>
 </table>
+<figure style="text-align: center; font-style: italic;">Tbl. Module types with abridged descriptions and examples. Each module links to a dedicated documentation page.</figure>
+
 <h3 id="contexts"><a name="contexts" class="plugin-anchor" href="#contexts"><i class="fa fa-link" aria-hidden="true"></i></a>Contexts</h3>
 <p>The <code>@ohif/viewer</code> tracks &quot;active contexts&quot; that extensions can use to scope
 their functionality. Some example contexts being:</p>
@@ -1074,8 +1077,30 @@ their functionality. Some example contexts being:</p>
 <p>An extension module can use these to say &quot;Only show this Toolbar Button if the
 active viewport is a Cornerstone viewport.&quot; This helps us use the appropriate UI
 and behaviors depending on the current contexts.</p>
+<p>For example, if we have hotkey that &quot;rotates the active viewport&quot;, each Viewport
+module that supports this behavior can add a command with the same name, scoped
+to the appropriate context. When the <code>command</code> is fired, the &quot;active contexts&quot;
+are used to determine the appropriate implementation of the rotate behavior.</p>
 <h2 id="consuming-extensions"><a name="consuming-extensions" class="plugin-anchor" href="#consuming-extensions"><i class="fa fa-link" aria-hidden="true"></i></a>Consuming Extensions</h2>
-<p>...</p>
+<p>We consume extensions, via the <code>ExtensionManager</code>, in our <code>@ohif/viewer</code>
+project.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> extensionManager = <span class="hljs-keyword">new</span> ExtensionManager({
+  commandsManager,
+  servicesManager,
+});
+
+<span class="hljs-comment">// prettier-ignore</span>
+extensionManager.registerExtensions([ <span class="hljs-comment">/** **/</span> ]);
+</code></pre>
+<p>The <code>@ohif/viewer</code> project handles data fetching, basic routing, wires up UI
+services, and is the home to the more bespoke application logic that doesn&apos;t
+make as much sense to make reusable.</p>
+<p>Long-term, replacing the <code>@ohif/viewer</code> application and consuming extensions
+(and the <code>ExtensionManager</code>) in your own project is the ideal path for
+applications requiring a high degree of customization that can&apos;t be achieved
+with current theming, configuration, extension, and services support.</p>
+<p>If you&apos;re not sure how to achieve your goals with the extensibility available
+today, create a GitHub issue!</p>
 <h2 id="maintained-extensions"><a name="maintained-extensions" class="plugin-anchor" href="#maintained-extensions"><i class="fa fa-link" aria-hidden="true"></i></a>Maintained Extensions</h2>
 <p>A small number of powerful extensions for popular use cases are maintained by
 OHIF. They&apos;re co-located in the <a href="https://github.com/OHIF/Viewers" target="_blank"><code>OHIF/Viewers</code></a> repository, in
@@ -1193,7 +1218,7 @@ the top level <a href="https://github.com/OHIF/Viewers/tree/master/extensions" t
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Extensions","level":"2.3","depth":1,"next":{"title":"Registering","level":"2.3.1","depth":2,"anchor":"#registering-an-extension","path":"extensions/index.md","ref":"extensions/index.md#registering-an-extension","articles":[]},"previous":{"title":"Internationalization","level":"2.2.3","depth":2,"path":"viewer/internationalization.md","ref":"viewer/internationalization.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"extensions/index.md","mtime":"2019-12-07T06:22:40.697Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-07T06:23:14.756Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Extensions","level":"2.3","depth":1,"next":{"title":"Registering","level":"2.3.1","depth":2,"anchor":"#registering-an-extension","path":"extensions/index.md","ref":"extensions/index.md#registering-an-extension","articles":[]},"previous":{"title":"Internationalization","level":"2.2.3","depth":2,"path":"viewer/internationalization.md","ref":"viewer/internationalization.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"extensions/index.md","mtime":"2019-12-08T19:10:13.055Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-08T19:10:52.209Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
