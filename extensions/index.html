@@ -463,6 +463,19 @@
     
         <li class="chapter " data-level="2.3.5" data-path="./">
             
+                <a href="./#extension-manager">
+            
+                    
+                    ExtensionManager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.6" data-path="./">
+            
                 <a href="./#maintained-extensions">
             
                     
@@ -924,7 +937,10 @@
 <li><a href="#contexts">Contexts</a></li>
 </ul>
 </li>
-<li><a href="#consuming-extensions">Consuming Extensions</a></li>
+<li><a href="#consuming-extensions">Consuming Extensions</a><ul>
+<li><a href="#extension-manager">Extension Manager</a></li>
+</ul>
+</li>
 <li><a href="#maintained-extensions">Maintained Extensions</a></li>
 </ul>
 <h2 id="overview"><a name="overview" class="plugin-anchor" href="#overview"><i class="fa fa-link" aria-hidden="true"></i></a>Overview</h2>
@@ -1101,6 +1117,27 @@ applications requiring a high degree of customization that can&apos;t be achieve
 with current theming, configuration, extension, and services support.</p>
 <p>If you&apos;re not sure how to achieve your goals with the extensibility available
 today, create a GitHub issue!</p>
+<h3 id="extensionmanager"><a name="extensionmanager" class="plugin-anchor" href="#extensionmanager"><i class="fa fa-link" aria-hidden="true"></i></a><code>ExtensionManager</code></h3>
+<p>The <code>ExtensionManager</code> is a class made available to us via the <code>@ohif/core</code>
+project (platform/core). Our application instantiates a single instance of it,
+and provides a <code>ServicesManager</code> and <code>CommandsManager</code>.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> commandsManager = <span class="hljs-keyword">new</span> CommandsManager();
+<span class="hljs-keyword">const</span> servicesManager = <span class="hljs-keyword">new</span> ServicesManager();
+<span class="hljs-keyword">const</span> extensionManager = <span class="hljs-keyword">new</span> ExtensionManager({
+  commandsManager,
+  servicesManager,
+});
+</code></pre>
+<p>The <code>ExtensionManager</code> only has a few public members:</p>
+<ul>
+<li><code>registerExtension</code> - Registers a single extension</li>
+<li><code>registerExtensions</code> - Registers an array of extensions</li>
+<li><code>modules</code> - An object containing registered extensions by <code>MODULE_TYPE</code></li>
+</ul>
+<p>During registration, lifecycle hooks and modules have access to
+<code>ExtensionManager</code>&apos;s <code>ServicesManager</code> and <code>CommandsManager</code>.</p>
+<p>Our <code>@ohif/viewer</code> uses the <code>modules</code> member to access registered extensions at
+appropriate places in our application.</p>
 <h2 id="maintained-extensions"><a name="maintained-extensions" class="plugin-anchor" href="#maintained-extensions"><i class="fa fa-link" aria-hidden="true"></i></a>Maintained Extensions</h2>
 <p>A small number of powerful extensions for popular use cases are maintained by
 OHIF. They&apos;re co-located in the <a href="https://github.com/OHIF/Viewers" target="_blank"><code>OHIF/Viewers</code></a> repository, in
@@ -1218,7 +1255,7 @@ the top level <a href="https://github.com/OHIF/Viewers/tree/master/extensions" t
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Extensions","level":"2.3","depth":1,"next":{"title":"Registering","level":"2.3.1","depth":2,"anchor":"#registering-an-extension","path":"extensions/index.md","ref":"extensions/index.md#registering-an-extension","articles":[]},"previous":{"title":"Internationalization","level":"2.2.3","depth":2,"path":"viewer/internationalization.md","ref":"viewer/internationalization.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"extensions/index.md","mtime":"2019-12-08T19:10:13.055Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-08T19:10:52.209Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Extensions","level":"2.3","depth":1,"next":{"title":"Registering","level":"2.3.1","depth":2,"anchor":"#registering-an-extension","path":"extensions/index.md","ref":"extensions/index.md#registering-an-extension","articles":[]},"previous":{"title":"Internationalization","level":"2.2.3","depth":2,"path":"viewer/internationalization.md","ref":"viewer/internationalization.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"extensions/index.md","mtime":"2019-12-08T19:38:16.223Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-08T19:39:15.574Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
