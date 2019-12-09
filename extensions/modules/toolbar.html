@@ -463,7 +463,7 @@
     
         <li class="chapter " data-level="2.3.5" data-path="../">
             
-                <a href="../#extension-manager">
+                <a href="../#extensionmanager">
             
                     
                     ExtensionManager
@@ -927,44 +927,180 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="module-toolbar"><a name="module-toolbar" class="plugin-anchor" href="#module-toolbar"><i class="fa fa-link" aria-hidden="true"></i></a>Module: Toolbar</h1>
-<p>An extension can register a Toolbar Module by providing a <code>getToolbarModule()</code>
-method that returns a React Component. The component does not receive any props.
-If you want to modify or react to state, you will need to connect to the redux
-store. The given toolbar must determine its set of elements and the context of
-them. The set of elements will be listed on toolbar <code>definitions</code>.</p>
-<p><img src="../assets/img/extensions-toolbar.gif" alt="Toolbar Extension"></p>
-<center><i>A toolbar extension example</i></center>
-
-<p>Toolbar components are rendered in the <code>ToolbarRow</code> component.</p>
-<p>For a complete example implementation,
-<a href="https://github.com/OHIF/Viewers/blob/master/extensions/cornerstone/src/toolbarModule.js" target="_blank">check out the OHIFCornerstoneViewport&apos;s Toolbar Module</a>.</p>
-<h2 id="toolbar-custom-component"><a name="toolbar-custom-component" class="plugin-anchor" href="#toolbar-custom-component"><i class="fa fa-link" aria-hidden="true"></i></a>Toolbar Custom Component</h2>
-<p>Toolbar elements can define its own custom react component to be consumed when
-rendering it. So far, it accepts <code>Functional</code> and <code>Class</code> Components. For that,
-you just need to expose your <code>CustomToolbarComponent</code> as the value of key
-<code>CustomComponent</code>. In case the property <code>CustomComponent</code> is not present, a
-default toolbar component will be used to render it. See bellow</p>
-<pre><code class="lang-js">definitions: [
-...
-    {
-        id: <span class="hljs-string">&apos;Custom&apos;</span>,
-        label: <span class="hljs-string">&apos;Custom&apos;</span>,
-        icon: <span class="hljs-string">&apos;custom-icon&apos;</span>,
-        CustomComponent: CustomToolbarComponent,
-    }
-...
-]
-</code></pre>
-<p><code>CustomComponent</code> components will receive the following props:</p>
+<p>An extension can register a Toolbar Module by defining a <code>getToolbarModule</code>
+method. This module is commonly used to define:</p>
 <ul>
-<li>parentContext: parent context. (In most of the cases it will be a ToolbarRow
-instance)</li>
-<li>toolbarClickCallback: callback method when clicking on toolbar</li>
-<li>button: its own definition object</li>
-<li>key: react key prop</li>
-<li>activeButtons: list of active elements</li>
-<li>isActive: if current</li>
+<li><a href="#button-definitions">Toolbar buttons</a></li>
+<li><a href="#nested-toolbar-menus">Nested toolbar menus</a></li>
+<li><a href="#custom-components">Custom components</a></li>
 </ul>
+<p><img src="../../assets/img/extensions-toolbar.gif" alt="Toolbar Extension"></p>
+<center><i>Example toolbar button using the Dialog Service to show CINE controls.</i></center>
+
+<h2 id="example-toolbar-module"><a name="example-toolbar-module" class="plugin-anchor" href="#example-toolbar-module"><i class="fa fa-link" aria-hidden="true"></i></a>Example Toolbar Module</h2>
+<p>The Toolbar Module should return an array of <code>definitions</code> and a
+<code>defaultContext</code>. There are currently a few different variations of definitions,
+each one is detailed further down.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  id: <span class="hljs-string">&apos;example-toolbar-module&apos;</span>,
+
+  <span class="hljs-comment">/**
+   * @param {object} params
+   * @param {ServicesManager} params.servicesManager
+   * @param {CommandsManager} params.commandsManager
+   */</span>
+  getToolbarModule({ servicesManager, commandsManager }) {
+    <span class="hljs-keyword">return</span> {
+      definitions: [
+        <span class="hljs-comment">/* Array of definitions */</span>
+      ],
+      defaultContext: [<span class="hljs-string">&apos;ROUTE:VIEWER&apos;</span>],
+    };
+  },
+};
+</code></pre>
+<h2 id="button-definitions"><a name="button-definitions" class="plugin-anchor" href="#button-definitions"><i class="fa fa-link" aria-hidden="true"></i></a>Button Definitions</h2>
+<p>The simplest definition has the following properties:</p>
+<pre><code class="lang-js">{
+  id: <span class="hljs-string">&apos;StackScroll&apos;</span>,
+  label: <span class="hljs-string">&apos;Stack Scroll&apos;</span>,
+  icon: <span class="hljs-string">&apos;bars&apos;</span>,
+  type: <span class="hljs-string">&apos;setToolActive&apos;</span>,
+  commandName: <span class="hljs-string">&apos;setToolActive&apos;</span>,
+  commandOptions: { toolName: <span class="hljs-string">&apos;StackScroll&apos;</span> },
+},
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>property</th>
+<th>description</th>
+<th>values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>Unique string identifier for the definition</td>
+<td>*</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td>User/display friendly to show in UI</td>
+<td>*</td>
+</tr>
+<tr>
+<td><code>icon</code></td>
+<td>A string name for an icon supported by the consuming application.</td>
+<td>*</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>Used to determine the button&apos;s component and behavior</td>
+<td><code>&quot;setToolActive&quot;</code>, <code>&quot;command&quot;</code></td>
+</tr>
+<tr>
+<td><code>commandName</code></td>
+<td>(optional) The command to run when the button is used.</td>
+<td>Any command registed by a <code>CommandModule</code></td>
+</tr>
+<tr>
+<td><code>commandOptions</code></td>
+<td>(optional) Options to pass the target <code>commandName</code></td>
+<td>*</td>
+</tr>
+<tr>
+<td><code>context</code></td>
+<td>(optional) Overrides module&apos;s <code>defaultContext</code></td>
+<td>Array of string context names</td>
+</tr>
+</tbody>
+</table>
+<p>Where a button with a <code>type</code> of <code>setToolActive</code> has an &quot;active&quot; styling applied
+when clicked; removing the active styling from all other buttons.</p>
+<h2 id="nested-toolbar-menus"><a name="nested-toolbar-menus" class="plugin-anchor" href="#nested-toolbar-menus"><i class="fa fa-link" aria-hidden="true"></i></a>Nested Toolbar Menus</h2>
+<p>You can indicate that buttons should be grouped and nested in a submenu by
+including <code>buttons</code> property in a definition:</p>
+<pre><code class="lang-js">{
+  id: <span class="hljs-string">&apos;More&apos;</span>,
+  label: <span class="hljs-string">&apos;More&apos;</span>,
+  icon: <span class="hljs-string">&apos;ellipse-circle&apos;</span>,
+  buttons: [
+    {
+      id: <span class="hljs-string">&apos;cstInvert&apos;</span>,
+      label: <span class="hljs-string">&apos;Invert&apos;</span>,
+      icon: <span class="hljs-string">&apos;circle&apos;</span>,
+      type: <span class="hljs-string">&apos;command&apos;</span>,
+      commandName: <span class="hljs-string">&apos;invertViewport&apos;</span>,
+    },
+  ],
+},
+</code></pre>
+<p><img src="../../assets/img/extensions-toolbar-nested.gif" alt="Toolbar Extension"></p>
+<center><i>Example toolbar button demonstrating nested buttons.</i></center>
+
+<h2 id="custom-components"><a name="custom-components" class="plugin-anchor" href="#custom-components"><i class="fa fa-link" aria-hidden="true"></i></a>Custom Components</h2>
+<p>The Toolbar Modules supports rendering custom components in place of the
+application&apos;s default. In place of the <code>type</code>, <code>commandName</code>, and
+<code>commandOptions</code> properties, we instead specify a <code>CustomComponent</code>.</p>
+<pre><code class="lang-js">{
+  id: <span class="hljs-string">&apos;Custom&apos;</span>,
+  label: <span class="hljs-string">&apos;Custom&apos;</span>,
+  icon: <span class="hljs-string">&apos;custom-icon&apos;</span>,
+  CustomComponent: CustomToolbarComponent,
+}
+</code></pre>
+<p>The <code>CustomComponent</code> components will receive the following props:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">CustomComponent</span>
+  <span class="hljs-attr">parentContext</span>=<span class="hljs-string">&quot;{parentContext}&quot;</span>
+  <span class="hljs-attr">toolbarClickCallback</span>=<span class="hljs-string">&quot;{_handleToolbarButtonClick.bind(this)}&quot;</span>
+  <span class="hljs-attr">button</span>=<span class="hljs-string">&quot;{button}&quot;</span>
+  <span class="hljs-attr">key</span>=<span class="hljs-string">&quot;{button.id}&quot;</span>
+  <span class="hljs-attr">activeButtons</span>=<span class="hljs-string">&quot;{activeButtonsIds}&quot;</span>
+  <span class="hljs-attr">isActive</span>=<span class="hljs-string">&quot;{isActive}&quot;</span>
+/&gt;</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>activeButtons</code></td>
+<td>string[]</td>
+<td>list of active buttons</td>
+</tr>
+<tr>
+<td><code>button</code></td>
+<td>object</td>
+<td>its own definition object</td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td>string</td>
+<td>React key prop</td>
+</tr>
+<tr>
+<td><code>isActive</code></td>
+<td>boolean</td>
+<td>If current button is active</td>
+</tr>
+<tr>
+<td><code>parentContext</code></td>
+<td>?</td>
+<td>The parent component&apos;s context?</td>
+</tr>
+<tr>
+<td><code>toolbarClickCallback</code></td>
+<td>func</td>
+<td>Callback method for clicks</td>
+</tr>
+</tbody>
+</table>
 
                                 
                                 </section>
@@ -1009,7 +1145,7 @@ instance)</li>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Toolbar","level":"2.3.3.4","depth":3,"next":{"title":"Viewport","level":"2.3.3.5","depth":3,"path":"extensions/modules/viewport.md","ref":"extensions/modules/viewport.md","articles":[]},"previous":{"title":"SOP Class Handler","level":"2.3.3.3","depth":3,"path":"extensions/modules/sop-class-handler.md","ref":"extensions/modules/sop-class-handler.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"extensions/modules/toolbar.md","mtime":"2019-12-09T02:27:21.232Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-09T02:28:11.275Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Toolbar","level":"2.3.3.4","depth":3,"next":{"title":"Viewport","level":"2.3.3.5","depth":3,"path":"extensions/modules/viewport.md","ref":"extensions/modules/viewport.md","articles":[]},"previous":{"title":"SOP Class Handler","level":"2.3.3.3","depth":3,"path":"extensions/modules/sop-class-handler.md","ref":"extensions/modules/sop-class-handler.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"extensions/modules/toolbar.md","mtime":"2019-12-09T06:02:36.532Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-09T06:03:19.242Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

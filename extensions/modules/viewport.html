@@ -463,7 +463,7 @@
     
         <li class="chapter " data-level="2.3.5" data-path="../">
             
-                <a href="../#extension-manager">
+                <a href="../#extensionmanager">
             
                     
                     ExtensionManager
@@ -927,17 +927,53 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="module-viewport"><a name="module-viewport" class="plugin-anchor" href="#module-viewport"><i class="fa fa-link" aria-hidden="true"></i></a>Module: Viewport</h1>
-<p>An extension can register a Viewport Module by providing a <code>getViewportModule()</code>
-method that returns a React Component. The React component will receive the
-following props:</p>
-<pre><code class="lang-js">children: PropTypes.arrayOf(PropTypes.element)
-studies: PropTypes.object,
-displaySet: PropTypes.object,
-viewportData: PropTypes.object, <span class="hljs-comment">// { studies, displaySet }</span>
-viewportIndex: PropTypes.number,
-children: PropTypes.node,
-customProps: PropTypes.object
+<p>An extension can register a Viewport Module by defining a <code>getViewportModule</code>
+method that returns a React component. Currently, we use viewport components to
+add support for:</p>
+<ul>
+<li>2D Medical Image Viewing (cornerstone ext.)</li>
+<li>Structured Reports as HTML (dicom html ext.)</li>
+<li>Encapsulated PDFs as PDFs (dicom pdf ext.)</li>
+<li>Whole Slide Microscopy Viewing (whole slide ext.)</li>
+<li>etc.</li>
+</ul>
+<p>The general pattern is, the <a href="#"><code>sopClassHandlerModule</code></a> helps us determine
+which Viewport Component a set of <code>sopClassUIDs</code> should default to. The Viewport
+Component receives props containing a display set it should know how to render.</p>
+<h2 id="viewport-component-props"><a name="viewport-component-props" class="plugin-anchor" href="#viewport-component-props"><i class="fa fa-link" aria-hidden="true"></i></a>Viewport Component Props</h2>
+<p>Each <code>ViewportComponent</code> will receive the following props:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">viewportComponent</span>
+  <span class="hljs-attr">viewportData</span>=<span class="hljs-string">&quot;{viewportData}&quot;</span>
+  <span class="hljs-attr">viewportIndex</span>=<span class="hljs-string">&quot;{viewportIndex}&quot;</span>
+  <span class="hljs-attr">children</span>=<span class="hljs-string">&quot;{[children]}&quot;</span>
+/&gt;</span>
 </code></pre>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>children</code></td>
+<td>React.element[]</td>
+<td></td>
+</tr>
+<tr>
+<td><code>viewportData</code></td>
+<td>object</td>
+<td><code>viewportSpecificData</code> (probably)</td>
+</tr>
+<tr>
+<td><code>viewportIndex</code></td>
+<td>number</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ohifviewer"><a name="ohifviewer" class="plugin-anchor" href="#ohifviewer"><i class="fa fa-link" aria-hidden="true"></i></a><code>@ohif/viewer</code></h3>
 <p>Viewport components are managed by the <code>ViewportGrid</code> Component. Which Viewport
 component is used depends on:</p>
 <ul>
@@ -946,10 +982,7 @@ component is used depends on:</p>
 <li>The SopClassUID for visible/selected datasets</li>
 </ul>
 <p><img src="../../assets/img/extensions-viewport.png" alt="Cornerstone Viewport"></p>
-<center><i>An example of three Viewports</i></center>
-
-<p>For a complete example implementation,
-<a href="https://github.com/OHIF/Viewers/blob/master/extensions/cornerstone/src/OHIFCornerstoneViewport.js" target="_blank">check out the OHIFCornerstoneViewport</a>.</p>
+<center><i>An example of three cornerstone Viewports</i></center>
 
                                 
                                 </section>
@@ -994,7 +1027,7 @@ component is used depends on:</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Viewport","level":"2.3.3.5","depth":3,"next":{"title":"Contexts","level":"2.3.4","depth":2,"anchor":"#contexts","path":"extensions/index.md","ref":"extensions/index.md#contexts","articles":[]},"previous":{"title":"Toolbar","level":"2.3.3.4","depth":3,"path":"extensions/modules/toolbar.md","ref":"extensions/modules/toolbar.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"extensions/modules/viewport.md","mtime":"2019-12-09T02:27:21.232Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-09T02:28:11.275Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Viewport","level":"2.3.3.5","depth":3,"next":{"title":"Contexts","level":"2.3.4","depth":2,"anchor":"#contexts","path":"extensions/index.md","ref":"extensions/index.md#contexts","articles":[]},"previous":{"title":"Toolbar","level":"2.3.3.4","depth":3,"path":"extensions/modules/toolbar.md","ref":"extensions/modules/toolbar.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"extensions/modules/viewport.md","mtime":"2019-12-09T06:02:36.536Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-09T06:03:19.242Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
