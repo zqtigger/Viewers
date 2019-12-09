@@ -927,38 +927,86 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="module-sop-class-handler"><a name="module-sop-class-handler" class="plugin-anchor" href="#module-sop-class-handler"><i class="fa fa-link" aria-hidden="true"></i></a>Module: SOP Class Handler</h1>
-<p>...</p>
+<p>An extension can register a SOP Class Handler Module by defining a
+<code>getSopClassHandlerModule</code> method. The SOP Class Handler is a bit different from
+the other modules, as it doesn&apos;t provide a <code>1:1</code> schema for UI or provide it&apos;s
+own components. It instead defines:</p>
+<ul>
+<li><code>sopClassUids</code>: an array of string SOP Class UIDs that the
+<code>getDisplaySetFromSeries</code> method should be applied to.</li>
+<li><code>getDisplaySetFromSeries</code>: a method that maps series and study metadata to a
+display set</li>
+</ul>
+<p>A <code>displaySet</code> has the following shape:</p>
+<pre><code class="lang-js"><span class="hljs-keyword">return</span> {
+  plugin: <span class="hljs-string">&apos;html&apos;</span>,
+  modality: <span class="hljs-string">&apos;SR&apos;</span>,
+  displaySetInstanceUid: <span class="hljs-number">0</span>,
+  wadoRoot: study.getData().wadoRoot,
+  wadoUri: instance.getData().wadouri,
+  sopInstanceUid: instance.getSOPInstanceUID(),
+  seriesInstanceUid: series.getSeriesInstanceUID(),
+  studyInstanceUid: study.getStudyInstanceUID(),
+  authorizationHeaders,
+};
+</code></pre>
+<p>Where the <code>plugin</code> key is used to influence the default <code>ViewportComponent</code> for
+rendering the <code>displaySet</code>. Additional properties are passed to the
+<code>ViewportComponent</code> and used by the default <code>StudyBrowser</code> to render
+&quot;thumbnails&quot; for each <code>displaySet</code></p>
+<h2 id="example-sop-class-handler-module"><a name="example-sop-class-handler-module" class="plugin-anchor" href="#example-sop-class-handler-module"><i class="fa fa-link" aria-hidden="true"></i></a>Example SOP Class Handler Module</h2>
 <pre><code class="lang-js"><span class="hljs-keyword">const</span> SOP_CLASS_UIDS = {
   BASIC_TEXT_SR: <span class="hljs-string">&apos;1.2.840.10008.5.1.4.1.1.88.11&apos;</span>,
   ENHANCED_SR: <span class="hljs-string">&apos;1.2.840.10008.5.1.4.1.1.88.22&apos;</span>,
 };
 
-<span class="hljs-keyword">const</span> sopClassHandlerModule = {
-  id: <span class="hljs-string">&apos;OHIFDicomHtmlSopClassHandler&apos;</span>,
-  sopClassUids: <span class="hljs-built_in">Object</span>.values(SOP_CLASS_UIDS),
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  id: <span class="hljs-string">&apos;example-sop-class-handler-module&apos;</span>,
 
-  <span class="hljs-comment">/**
-   * @param {object} series -
-   * @param {object} study -
-   * @param {object} dicomWebClient -
-   * @param {object} authorizationHeaders -
-   */</span>
-  getDisplaySetFromSeries(series, study, dicomWebClient, authorizationHeaders) {
-    <span class="hljs-keyword">const</span> instance = series.getFirstInstance();
+<span class="hljs-comment">/**
+ * @param {object} params
+ * @param {ServicesManager} params.servicesManager
+ * @param {CommandsManager} params.commandsManager
+ */</span>
+getSopClassHandlerModule({ servicesManager, commandsManager }) {
+  <span class="hljs-keyword">return</span> {
+    id: <span class="hljs-string">&apos;OHIFDicomHtmlSopClassHandler&apos;</span>,
+    sopClassUids: <span class="hljs-built_in">Object</span>.values(SOP_CLASS_UIDS),
 
-    <span class="hljs-keyword">return</span> {
-      plugin: <span class="hljs-string">&apos;html&apos;</span>,
-      displaySetInstanceUid: <span class="hljs-number">0</span>,
-      wadoRoot: study.getData().wadoRoot,
-      wadoUri: instance.getData().wadouri,
-      sopInstanceUid: instance.getSOPInstanceUID(),
-      seriesInstanceUid: series.getSeriesInstanceUID(),
-      studyInstanceUid: study.getStudyInstanceUID(),
-      authorizationHeaders,
-    };
-  },
+    <span class="hljs-comment">/**
+     * @param {object} series -
+     * @param {object} study -
+     * @param {object} dicomWebClient -
+     * @param {object} authorizationHeaders -
+     */</span>
+    getDisplaySetFromSeries(series, study, dicomWebClient, authorizationHeaders) {
+      <span class="hljs-keyword">const</span> instance = series.getFirstInstance();
+
+      <span class="hljs-keyword">return</span> {
+        plugin: <span class="hljs-string">&apos;html&apos;</span>,
+        displaySetInstanceUid: <span class="hljs-number">0</span>,
+        wadoRoot: study.getData().wadoRoot,
+        wadoUri: instance.getData().wadouri,
+        sopInstanceUid: instance.getSOPInstanceUID(),
+        seriesInstanceUid: series.getSeriesInstanceUID(),
+        studyInstanceUid: study.getStudyInstanceUID(),
+        authorizationHeaders,
+      };
+    },
+  }
 };
 </code></pre>
+<h2 id="ohifviewer-usage"><a name="ohifviewer-usage" class="plugin-anchor" href="#ohifviewer-usage"><i class="fa fa-link" aria-hidden="true"></i></a><code>@ohif/viewer</code> usage</h2>
+<p>We use the <code>sopClassHandlerModule</code>s in three different places:</p>
+<ul>
+<li><code>ViewerLocalFileData.js</code></li>
+<li><code>ViewerRetrieveStudyData.js</code></li>
+<li><code>StandaloneRouting.js</code></li>
+</ul>
+<p>Each time, it is used to map study and series data to <code>displaySets</code>. It does
+this by working alongside the <code>StudyMetadataManager</code> in <code>@ohif/core</code>. That
+manager has the method <code>createDisplaySets</code> that takes an array of
+<code>sopClassHandlerModules</code>.</p>
 
                                 
                                 </section>
@@ -1003,7 +1051,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"SOP Class Handler","level":"2.3.3.3","depth":3,"next":{"title":"Toolbar","level":"2.3.3.4","depth":3,"path":"extensions/modules/toolbar.md","ref":"extensions/modules/toolbar.md","articles":[]},"previous":{"title":"Panel","level":"2.3.3.2","depth":3,"path":"extensions/modules/panel.md","ref":"extensions/modules/panel.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"extensions/modules/sop-class-handler.md","mtime":"2019-12-09T17:48:15.533Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-09T17:48:47.209Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"SOP Class Handler","level":"2.3.3.3","depth":3,"next":{"title":"Toolbar","level":"2.3.3.4","depth":3,"path":"extensions/modules/toolbar.md","ref":"extensions/modules/toolbar.md","articles":[]},"previous":{"title":"Panel","level":"2.3.3.2","depth":3,"path":"extensions/modules/panel.md","ref":"extensions/modules/panel.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-cornerstone","-fontsettings","github","ga","sitemap","anchors","versions"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/OHIF/Viewers"},"search":{},"theme-cornerstone":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"sitemap":{"hostname":"https://docs.ohif.org"},"ga":{"configuration":"auto","token":"UA-110573590-2"},"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/OHIF/Viewers/master/docs/book.json","options":[{"value":"https://docs.ohif.org/history/v1/","text":"Version 1.0.0 (Meteor)"},{"value":"https://docs.ohif.org/","text":"Version 2.0.0","selected":true}]},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/OHIF/Viewers/edit/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"OHIF","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":">3.0.0","description":"Documentation for the OHIF framework"},"file":{"path":"extensions/modules/sop-class-handler.md","mtime":"2019-12-09T18:56:43.561Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-09T18:57:24.292Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
